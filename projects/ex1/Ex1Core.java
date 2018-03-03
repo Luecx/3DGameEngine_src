@@ -36,7 +36,7 @@ public class Ex1Core extends RenderCore {
         perspectiveCamera.setPosition(0,0,10);
         perspectiveCamera.setFOV(110);
 
-        RawModel rawModel = OBJLoader.loadOBJ("models/cube", true);
+        RawModel rawModel = OBJLoader.loadOBJ("cube", true);
         EntityMaterial material = new EntityMaterial(Loader.loadTexture("brick"));
         material.setNormalMap(Loader.loadTexture("brick"));
         material.setUseNormalMap(true);
