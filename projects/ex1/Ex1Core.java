@@ -37,8 +37,8 @@ public class Ex1Core extends RenderCore {
         perspectiveCamera.setFOV(110);
 
         RawModel rawModel = OBJLoader.loadOBJ("models/cube", true);
-        EntityMaterial material = new EntityMaterial(Loader.loadTexture("textures/colormaps/fels"));
-        material.setNormalMap(Loader.loadTexture("textures/normalmaps/cliffNormal"));
+        EntityMaterial material = new EntityMaterial(Loader.loadTexture("brick"));
+        material.setNormalMap(Loader.loadTexture("brick"));
         material.setUseNormalMap(true);
 
         TexturedModel texturedModel = new TexturedModel(rawModel, material);
