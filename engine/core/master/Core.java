@@ -43,6 +43,7 @@ public class Core extends RenderCore{
 
         SkydomeElement skydomeElement = new SkydomeElement(Loader.loadTexture("textures/colormaps/sky"));
 
+        RenderSettings.skydome_radius = 3000;
         RenderSettings.skydome_fog = true;
         RenderSettings.skydome_follow_x_axis = true;
         RenderSettings.skydome_follow_z_axis = true;
