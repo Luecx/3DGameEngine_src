@@ -1,0 +1,236 @@
+/*
+package engine.linear.terrain;
+
+import java.util.Random;
+
+*/
+/**
+ * Created by Luecx on 04.02.2017.
+ *//*
+
+public class DiamondHeightsGenerator {
+
+    private int root;
+    private int terrainPower;
+    private int maxIndex;
+    private float height;
+    private float roughness;
+
+    private Random random;
+    private float[][] heights;
+    */
+/**
+     * Default constructor.
+     * root equals is used like this:
+     * totalChunks = 2^(root * 2)
+     * the amount of total vertices is equal to sqrt(pow(2,terrainPower)+1)
+     * @param root
+     *//*
+
+    public DiamondHeightsGenerator(int terrainPower, int root, float height, float roughness) {
+        this.root = root;
+        this.terrainPower = terrainPower;
+        this.random = new Random();
+        this.height = height;
+        this.maxIndex = (int)(Math.pow(2, terrainPower));
+        this.roughness = roughness;
+        heights = new float[maxIndex+1][maxIndex+1];
+        initCorners();
+        generateRecursive(0,0,terrainPower,terrainPower-root);
+    }
+
+    public void subdivide(int startX, int startY, int power) {
+        float a = heights[startX][startY];
+        float b = heights[startX][startY + (int) Math.pow(2, power)];
+        float d = heights[startX+ (int) Math.pow(2, power)][startY];
+        float c = heights[startX+ (int) Math.pow(2, power)][startY+ (int) Math.pow(2, power)];
+        float scale;
+        if(terrainPower == power){
+            scale = 0.5f * amplitude;
+        }else{
+            scale = 0.5f * amplitude / (shrinkFactor * (terrainPower - power + 1) * (terrainPower - power + 1)) ;
+        }
+        int x = startX + (int)(0.5 * Math.pow(2, power));
+        int y = startY + (int)(0.5 * Math.pow(2, power));
+        heights[x][y] = getNoise(x,y) * scale  + (a + b + c + d)/4;
+
+        heights[startX][startY + (int)(0.5f*  Math.pow(2, power))] = getNoise(startX,(int)(0.5f*  Math.pow(2, power))) * 0.5f * scale  + (a + b)/2;
+        heights[startX + (int)(0.5f * Math.pow(2, power))][startY + (int)(Math.pow(2, power))] = getNoise(startX + (int)(0.5f * Math.pow(2, power)),startY + (int)(Math.pow(2, power))) * 0.5f * scale  + (b + c)/2;
+        heights[startX + (int)(Math.pow(2, power))][startY + (int)(0.5f*  Math.pow(2, power))] = getNoise(startX + (int)(Math.pow(2, power)),startY + (int)(0.5f*  Math.pow(2, power))) * 0.5f * scale  + (c + d)/2;
+        heights[startX + (int)(0.5f*  Math.pow(2, power))][startY] = getNoise(startX + (int)(0.5f*  Math.pow(2, power)),startY) * 0.5f * scale  + (d + a)/2;
+    }
+
+    private void diamond(int x, int y, int power, float offset){
+        int size = (int)Math.pow(2, power);
+        this.heights[x + size/2][y + size /2] = offset+
+                (this.heights[x][y]+
+                this.heights[x][y+size]+
+                this.heights[x+size][y]+
+                this.heights[x+size][y+size]) / 4f;
+    }
+
+    private void square(int x, int y, int power, float offset){
+        int[] ofs = new int[]{};
+    }
+
+    public float getHeight(int x, int y){
+        if(x < 0) return heights[0][y];
+        if(x > maxIndex) return heights[maxIndex][y];
+        if(y < 0) return heights[y][0];
+        if(y > maxIndex) return heights[x][maxIndex];
+        return 0;
+    }
+
+
+    public void generateRecursive(int startX, int startY, int power) {
+        this.subdivide(startX, startY, power);
+        if(power == 1)return;
+        this.generateRecursive(startX, startY, power-1);
+        this.generateRecursive(startX + (int)(0.5 * Math.pow(2, power)), startY, power-1);
+        this.generateRecursive(startX , startY + (int)(0.5 * Math.pow(2, power)), power-1);
+        this.generateRecursive(startX + (int)(0.5 * Math.pow(2, power)), startY + (int)(0.5 * Math.pow(2, power)), power-1);
+    }
+
+    private void generateRecursive(int startX, int startY, int power, int minPower) {
+        this.subdivide(startX, startY, power);
+        if(power == minPower)return;
+        this.generateRecursive(startX, startY, power-1, minPower);
+        this.generateRecursive(startX + (int)(0.5 * Math.pow(2, power)), startY, power-1, minPower);
+        this.generateRecursive(startX , startY + (int)(0.5 * Math.pow(2, power)), power-1, minPower);
+        this.generateRecursive(startX + (int)(0.5 * Math.pow(2, power)), startY + (int)(0.5 * Math.pow(2, power)), power-1, minPower);
+    }
+
+    public void generate(int index){
+        int fieldPower = terrainPower - root;
+        int fielSize = (int)Math.pow(2, fieldPower);
+        this.generateRecursive(index / (int) Math.pow(2,root) * fielSize,index % (int) Math.pow(2,root) * fielSize,fieldPower);
+    }
+
+    public float[][] extract(int index){
+        float[][] out = new float[(int)Math.pow(2,terrainPower-root)+1][(int)Math.pow(2,terrainPower-root)+1];
+        int fieldPower = terrainPower - root;
+        int fielSize = (int)Math.pow(2, fieldPower);
+        for(int i = 0; i < out.length; i++){
+            for(int n = 0; n < out.length; n++){
+                out[i][n] = heights[index / (int) Math.pow(2,root) * fielSize + i][index % (int) Math.pow(2,root) * fielSize+ n];
+            }
+        }
+        return out;
+    }
+
+
+    public String toString() {
+        String s = "";
+        for(int i = 0; i < Math.pow(2, terrainPower) + 1; i++) {
+            for(int n = 0; n < Math.pow(2, terrainPower) + 1; n++) {
+                s += (int)heights[i][n] + "  ";
+            }
+            s+= "\n";
+        }
+        return s;
+    }
+
+    private void initCorners() {
+        heights[0][0] = height;
+        heights[(int)(Math.pow(2, terrainPower))][0] = height;
+        heights[0][(int)(Math.pow(2, terrainPower))] = height;
+        heights[(int)(Math.pow(2, terrainPower))][(int)(Math.pow(2, terrainPower))] = height;
+    }
+
+    private float getNoise(int x, int z){
+        return random.nextFloat() * 2 - 1;
+    }
+
+
+    public static float[][] generate(int seed, int power) {
+        int size =(int)Math.pow(2, power)+1;
+        return calc(size, seed, seed/2);
+    }
+
+
+    private static float[][] calc(int DATA_SIZE, float SEED, float h){
+
+        float[][] data = new float[DATA_SIZE][DATA_SIZE];
+        //seed the data
+        data[0][0] = data[0][DATA_SIZE-1] = data[DATA_SIZE-1][0] =
+                data[DATA_SIZE-1][DATA_SIZE-1] = SEED;
+
+        Random r = new Random();//for the new value in range of h
+        r.setSeed((long)SEED * 12322);
+        //side length is distance of a single square side
+        //or distance of diagonal in diamond
+        for(int sideLength = DATA_SIZE-1;
+            //side length must be >= 2 so we always have
+            //a new value (if its 1 we overwrite existing values
+            //on the last iteration)
+            sideLength >= 2;
+            //each iteration we are looking at smaller squares
+            //diamonds, and we decrease the variation of the offset
+            sideLength /=2, h/= 2.0){
+            //half the length of the side of a square
+            //or distance from diamond center to one corner
+            //(just to make calcs below a little clearer)
+            int halfSide = sideLength/2;
+
+            //generate the new square values
+            for(int x=0;x<DATA_SIZE-1;x+=sideLength){
+                for(int y=0;y<DATA_SIZE-1;y+=sideLength){
+                    //x, y is upper left corner of square
+                    //calculate average of existing corners
+                    double avg = data[x][y] + //top left
+                            data[x+sideLength][y] +//top right
+                            data[x][y+sideLength] + //lower left
+                            data[x+sideLength][y+sideLength];//lower right
+                    avg /= 4.0;
+
+                    //center is average plus random offset
+                    data[x+halfSide][y+halfSide] =
+                            (float) (//We calculate random value in range of 2h
+                                    //and then subtract h so the end value is
+                                    //in the range (-h, +h)
+                                    avg + (r.nextDouble()*2*h) - h);
+                }
+            }
+
+            //generate the diamond values
+            //since the diamonds are staggered we only move x
+            //by half side
+            //NOTE: if the data shouldn't wrap then x < DATA_SIZE
+            //to generate the far edge values
+            for(int x=0;x<DATA_SIZE-1;x+=halfSide){
+                //and y is x offset by half a side, but moved by
+                //the full side length
+                //NOTE: if the data shouldn't wrap then y < DATA_SIZE
+                //to generate the far edge values
+                for(int y=(x+halfSide)%sideLength;y<DATA_SIZE-1;y+=sideLength){
+                    //x, y is center of diamond
+                    //note we must use mod  and add DATA_SIZE for subtraction
+                    //so that we can wrap around the array to find the corners
+                    double avg =
+                            data[(x-halfSide+DATA_SIZE)%DATA_SIZE][y] + //left of center
+                                    data[(x+halfSide)%DATA_SIZE][y] + //right of center
+                                    data[x][(y+halfSide)%DATA_SIZE] + //below center
+                                    data[x][(y-halfSide+DATA_SIZE)%DATA_SIZE]; //above center
+                    avg /= 4.0;
+
+                    //new value = average plus random offset
+                    //We calculate random value in range of 2h
+                    //and then subtract h so the end value is
+                    //in the range (-h, +h)
+                    avg = avg + (r.nextDouble()*2*h) - h;
+                    //update value for center of diamond
+                    data[x][y] = (float) avg;
+
+                    //wrap values on the edges, remove
+                    //this and adjust loop condition above
+                    //for non-wrapping values.
+                    if(x == 0)  data[DATA_SIZE-1][y] = (float) avg;
+                    if(y == 0)  data[x][DATA_SIZE-1] = (float) avg;
+                }
+            }
+        }
+        return data;
+    }
+}
+
+*/
