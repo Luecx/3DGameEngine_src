@@ -5,6 +5,7 @@ package projects.buggy_project;
  */
 public abstract class Parameter {
 
+    public final static String SKYDOME_TEXTURE = "textures/colormaps/stripes";
 
 
 
