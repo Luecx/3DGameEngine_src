@@ -2,6 +2,7 @@ package projects.buggy_project.world;
 
 import engine.core.components.Light;
 import engine.core.exceptions.CoreException;
+import engine.core.master.RenderSettings;
 import engine.core.sourceelements.RawModel;
 import engine.core.system.Sys;
 import engine.linear.entities.Entity;
@@ -9,6 +10,9 @@ import engine.linear.entities.TexturedModel;
 import engine.linear.loading.Loader;
 import engine.linear.loading.OBJLoader;
 import engine.linear.material.EntityMaterial;
+import engine.linear.material.SkydomeElement;
+import engine.render.skydomesystem.SkydomeSystem;
+import projects.buggy_project.Parameter;
 
 import java.util.ArrayList;
 
@@ -47,6 +51,24 @@ public class World implements WorldInterface {
         }
 
         lights.add(new Light(1000,1000,1000));
+
+
+        //Skydome:
+        SkydomeElement element = new SkydomeElement(Loader.loadTexture(Parameter.SKYDOME_TEXTURE));
+        RenderSettings.skydome_use_skysphere = false;
+        RenderSettings.skydome_radius = 30000;
+        RenderSettings.skydome_follow_x_axis = true;
+        RenderSettings.skydome_follow_z_axis = true;
+        RenderSettings.skydome_follow_y_axis = false;
+        RenderSettings.skydome_bounding_y_axis = -3000;
+        RenderSettings.skydome_fog_midlevel = 3000;
+        RenderSettings.skydome_fog_gradient = 0.3f;
+        try {
+            Sys.SKYDOME_SYSTEM.addElement(element);
+        } catch (CoreException e1) {
+            e1.printStackTrace();
+        }
+
     }
 
     @Override
