@@ -33,7 +33,7 @@ public interface WorldInterface {
      *
      * @return
      */
-    float generateWorld();
+    void generateWorld();
 
     /**
      * Changes the render settings (fog)
