@@ -38,8 +38,8 @@ public class Ex1Core extends RenderCore {
 
         RawModel rawModel = OBJLoader.loadOBJ("cube", true);
         EntityMaterial material = new EntityMaterial(Loader.loadTexture("brick"));
-        material.setNormalMap(Loader.loadTexture("brick"));
-        material.setUseNormalMap(true);
+        //material.setNormalMap(Loader.loadTexture("brick"));
+        //material.setUseNormalMap(true);
 
         TexturedModel texturedModel = new TexturedModel(rawModel, material);
 
