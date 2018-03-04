@@ -33,7 +33,6 @@ public class SandBuggy implements BuggyInterface {
         radLinks = new Group(0,1,0);
         group.addChild(radLinks);
 
-
     }
 
     @Override
