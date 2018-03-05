@@ -5,15 +5,21 @@ import engine.core.exceptions.CoreException;
 import engine.core.master.RenderSettings;
 import engine.core.sourceelements.RawModel;
 import engine.core.system.Sys;
+import engine.linear.advancedterrain.Chunk;
+import engine.linear.advancedterrain.HeightMap;
+import engine.linear.advancedterrain.Terrain;
 import engine.linear.entities.Entity;
 import engine.linear.entities.TexturedModel;
 import engine.linear.loading.Loader;
 import engine.linear.loading.OBJLoader;
 import engine.linear.material.EntityMaterial;
 import engine.linear.material.SkydomeElement;
+import engine.linear.material.TerrainMaterial;
+import engine.linear.material.TerrainMultimapTexturePack;
 import engine.render.skydomesystem.SkydomeSystem;
 import projects.buggy_project.Parameter;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -36,16 +42,54 @@ public class World implements WorldInterface {
 
     @Override
     public void generateWorld() {
-        RawModel model = OBJLoader.loadOBJ("models/env", true);
-        EntityMaterial material = new EntityMaterial(Loader.loadTexture("textures/colormaps/stripes"));
-        TexturedModel texturedModel = new TexturedModel(model, material);
-        texturedModel.setTextureStretch(1000);
 
-        Entity e = new Entity(texturedModel);
-        e.setScale(1000,1,1000);
+        Terrain terrain = new Terrain();
+
+        TerrainMaterial materialA = new TerrainMaterial(
+                Loader.loadTexture(Parameter.TERRAIN_MAT_A_COLOR),
+                Loader.loadTexture(Parameter.TERRAIN_MAT_A_NORMAL));
+        TerrainMaterial materialB = new TerrainMaterial(
+                Loader.loadTexture(Parameter.TERRAIN_MAT_B_COLOR),
+                Loader.loadTexture(Parameter.TERRAIN_MAT_B_NORMAL));
+        TerrainMaterial materialC = new TerrainMaterial(
+                Loader.loadTexture(Parameter.TERRAIN_MAT_C_COLOR),
+                Loader.loadTexture(Parameter.TERRAIN_MAT_C_NORMAL));
+        TerrainMaterial materialD = new TerrainMaterial(
+                Loader.loadTexture(Parameter.TERRAIN_MAT_D_COLOR),
+                Loader.loadTexture(Parameter.TERRAIN_MAT_D_NORMAL));
+        TerrainMultimapTexturePack material = new TerrainMultimapTexturePack(
+                Loader.loadTexture(Parameter.TERRAIN_OVERLAY_MAP),
+                materialA,materialB,materialC,materialD
+        );
+        HeightMap heightMap = new HeightMap(
+                Parameter.TERRAIN_VERTEX_POWER,
+                Parameter.TERRAIN_VERTEX_OFFSET);
+        heightMap.setScaleFactor(Parameter.TERRAIN_HEIGHT_SCALE);
+        heightMap.convertImageToData(Parameter.TERRAIN_HEIGHT_MAP);
+
+        Chunk c = new Chunk(
+                -Parameter.TERRAIN_SIZE / 2,
+                -Parameter.TERRAIN_SIZE / 2,
+                Parameter.TERRAIN_VERTEX_POWER,
+                (float)((double)Parameter.TERRAIN_SIZE / (double)(
+                        Math.pow(2,Parameter.TERRAIN_VERTEX_POWER)-
+                                Parameter.TERRAIN_VERTEX_OFFSET)));
+
+        c.setHeights(heightMap.getHeights());
+        c.generateModelData();
+        c.generateBlendDataFromNormals(
+                Parameter.TERRAIN_LOWER_MAT_HEIGHT,
+                Parameter.TERRAIN_UPPER_MAT_HEIGHT,
+                Parameter.TERRAIN_SLOAP_LIGHT,
+                Parameter.TERRAIN_SLOAP_HARD);
+        c.createRawModelFromCollectedData();
+        terrain.getChunks().add(c);
+        terrain.setTerrainMaterial(material);
+
+        System.out.println(c);
 
         try {
-            Sys.ENTITY_SYSTEM.addElement(e);
+            Sys.ADVANCED_TERRAIN_SYSTEM.addElement(terrain);
         } catch (CoreException e1) {
             e1.printStackTrace();
         }

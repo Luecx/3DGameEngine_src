@@ -2,6 +2,7 @@ package engine.linear.terrain;
 
 import engine.core.sourceelements.RawModel;
 import engine.core.sourceelements.SourceElement;
+import engine.linear.material.TerrainMultimapTexturePack;
 import org.lwjgl.util.vector.Vector3f;
 import java.awt.image.BufferedImage;
 
@@ -20,7 +21,7 @@ public class Terrain implements SourceElement{
     private TerrainModelData modelData = new TerrainModelData();;
 
     private RawModel rawModel;
-    private TerrainMultimapTexturePack texturesPack = new TerrainMultimapTexturePack();
+    private TerrainMultimapTexturePack texturesPack = new TerrainMultimapTexturePack(0,null,null,null,null);
 
     private float[][] heights;
 
