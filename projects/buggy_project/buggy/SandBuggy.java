@@ -26,7 +26,7 @@ public class SandBuggy implements BuggyInterface {
     public void spawnModel() {
         group = new Group();
         entity = new Entity();
-        camera = new PerspectiveCamera();
+        camera = new PerspectiveCamera(0,50,0);
         group.addChild(entity);
         group.addChild(camera);
 

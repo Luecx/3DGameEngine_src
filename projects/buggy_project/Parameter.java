@@ -5,7 +5,7 @@ package projects.buggy_project;
  */
 public abstract class Parameter {
 
-    public final static String SKYDOME_TEXTURE = "textures/colormaps/stripes";
+    public final static String SKYDOME_TEXTURE = "textures/colormaps/sky";
 
     public final static String TERRAIN_HEIGHT_MAP = "terrain/canyon";
     public final static String TERRAIN_OVERLAY_MAP = "terrain/canyonOverlay";

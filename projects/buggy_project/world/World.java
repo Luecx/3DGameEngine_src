@@ -86,8 +86,6 @@ public class World implements WorldInterface {
         terrain.getChunks().add(c);
         terrain.setTerrainMaterial(material);
 
-        System.out.println(c);
-
         try {
             Sys.ADVANCED_TERRAIN_SYSTEM.addElement(terrain);
         } catch (CoreException e1) {
@@ -104,7 +102,7 @@ public class World implements WorldInterface {
         RenderSettings.skydome_follow_x_axis = true;
         RenderSettings.skydome_follow_z_axis = true;
         RenderSettings.skydome_follow_y_axis = false;
-        RenderSettings.skydome_bounding_y_axis = -3000;
+        RenderSettings.skydome_bounding_y_axis = 000;
         RenderSettings.skydome_fog_midlevel = 3000;
         RenderSettings.skydome_fog_gradient = 0.3f;
         try {
