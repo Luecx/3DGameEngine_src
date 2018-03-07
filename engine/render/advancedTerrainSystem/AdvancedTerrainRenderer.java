@@ -40,8 +40,6 @@ public class AdvancedTerrainRenderer extends AbstractRenderer<AdvancedTerrainSha
                 RenderSettings.terrain_fog_color_green,
                 RenderSettings.terrain_fog_color_blue);
 
-
-
         prepare();
         for(Chunk chunk:terrain.getChunks()){
             prepareChunk(chunk);

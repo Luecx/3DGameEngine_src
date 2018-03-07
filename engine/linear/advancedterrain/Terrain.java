@@ -3,7 +3,7 @@ package engine.linear.advancedterrain;
 import engine.core.sourceelements.RawModel;
 import engine.core.sourceelements.SourceElement;
 import engine.core.sourceelements.VAOIdentifier;
-import engine.linear.terrain.TerrainMultimapTexturePack;
+import engine.linear.material.TerrainMultimapTexturePack;
 
 import java.util.ArrayList;
 

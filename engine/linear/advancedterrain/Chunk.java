@@ -7,6 +7,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 
 /**
  * Created by Luecx on 05.02.2017.
@@ -95,6 +96,7 @@ public class Chunk implements SourceElement{
 
     public boolean createRawModelFromCollectedData() {
         RawModel r = this.modelData.createRawModel();
+        System.out.println(this.modelData.getVertices() );
         if (r == null) {
             return false;
         } else {
@@ -107,6 +109,8 @@ public class Chunk implements SourceElement{
         if (!this.heightsGenerated()) {
             return;
         }
+
+        System.out.println("...");
 
         float[] vertices = new float[vertexCount * vertexCount * 3];
         float[] normals = new float[vertexCount * vertexCount * 3];
@@ -283,6 +287,7 @@ public class Chunk implements SourceElement{
     }
 
     public void setHeights(float[][] heights) {
+        System.out.println(heights.length + "   " + this.vertexCount);
         if(heights.length == this.vertexCount && heights[0].length == this.vertexCount){
             this.heights = heights;
         }
@@ -347,6 +352,22 @@ public class Chunk implements SourceElement{
         }
 
         this.modelData.setBlending(blending);
+    }
+
+    @Override
+    public String toString() {
+        return "Chunk{" +
+                "startX=" + startX +
+                ", centerX=" + centerX +
+                ", size=" + size +
+                ", startY=" + startY +
+                ", centerY=" + centerY +
+                ", stretchFactor=" + stretchFactor +
+                ", vertexCount=" + vertexCount +
+                ", generators=" + Arrays.toString(generators) +
+                ", modelData=" + modelData +
+                ", rawModel=" + rawModel +
+                '}';
     }
 
     public void setRawModel(RawModel rawModel) {
