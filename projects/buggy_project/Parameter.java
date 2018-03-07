@@ -31,11 +31,6 @@ public abstract class Parameter {
 
 
 
-
-
-
-
-
     public final static String CAR_MODEL = "models/cube";
     public final static String TIRE_MODEL = "models/Tire2";
 
