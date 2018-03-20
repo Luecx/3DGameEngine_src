@@ -38,6 +38,11 @@ public abstract class InstancedGameEntitySet<T extends InstancedGameEntity> exte
         instanceSet.updateVbo();
     }
 
+    @Override
+    public void destroyEntity() {
+
+    }
+
     public void generateInstanceSet() {
         this.instanceSet = new InstanceSet(texturedModel);
 
