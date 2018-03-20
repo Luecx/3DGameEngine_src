@@ -42,6 +42,10 @@ public class World implements WorldInterface {
 
     @Override
     public void generateWorld() {
+        RawModel model = OBJLoader.loadOBJ("env", true);
+        EntityMaterial material = new EntityMaterial(Loader.loadTexture("orangegrid"));
+        TexturedModel texturedModel = new TexturedModel(model, material);
+        texturedModel.setTextureStretch(1000);
 
         Terrain terrain = new Terrain();
 
