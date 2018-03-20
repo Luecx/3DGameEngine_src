@@ -41,7 +41,7 @@ public class GroundMap extends UniqueGameEntity {
 
     @Override
     public void generateTexturedModel() {
-        RawModel model = OBJLoader.loadOBJ("models/env", true);
+        RawModel model = OBJLoader.loadOBJ("ground", true);
         EntityMaterial material = new EntityMaterial(Loader.loadTexture("raw"));
         texturedModel = new TexturedModel(model, material);
         texturedModel.setTextureStretch(this.fields.length);

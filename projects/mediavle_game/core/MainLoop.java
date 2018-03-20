@@ -2,8 +2,10 @@ package projects.mediavle_game.core;
 
 import engine.core.components.Light;
 import engine.core.components.PerspectiveCamera;
+import engine.core.master.DisplayManager;
 import engine.core.master.RenderCore;
 import engine.core.system.Sys;
+import org.lwjgl.opengl.Display;
 import projects.mediavle_game.map.GroundMap;
 
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ public class MainLoop extends RenderCore {
     protected void render() {
         perspectiveCamera.move();
         Sys.NORMAL_ENTITY_SYSTEM.render(lights, perspectiveCamera);
+
     }
 
     public static void main(String[] args) {
