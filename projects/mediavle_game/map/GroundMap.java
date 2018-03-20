@@ -51,7 +51,11 @@ public class GroundMap extends UniqueGameEntity {
     }
 
     public boolean rigidBody(float x, float z) {
+<<<<<<< HEAD
         if(x > 0 && z > 0 && x < this.width && z < this.height && fields[(int)x][(int)z].getGameEntity() != null){
+=======
+        if(x > 0 && z > 0 && x < this.width && z < this.height){
+>>>>>>> Finn
             if(fields[(int)x][(int)z].getGameEntity().isRigidBody()) return true;
         }
         return false;
