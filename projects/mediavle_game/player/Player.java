@@ -48,9 +48,11 @@ public class Player {
 
         if (Mouse.isButtonDown(0)) {
             Vector2f look = this.perspectiveCamera.lookingAtField();
-            if (groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity() != null) {
-                groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity().destroy();
-                groundMap.getFields()[(int) look.x][(int) look.y].setUniqueGameEntity(null);
+            if(look != null) {
+                if (groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity() != null) {
+                    groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity().destroyEntity();
+                    groundMap.getFields()[(int) look.x][(int) look.y].setUniqueGameEntity(null);
+                }
             }
         }
     }
