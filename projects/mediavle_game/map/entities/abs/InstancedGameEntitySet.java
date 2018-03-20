@@ -23,7 +23,7 @@ public abstract class InstancedGameEntitySet<T extends InstancedGameEntity> exte
 
     public void addInstance(T instance) {
         instances.add(instance);
-        positions.add(new float[]{instance.getX(),0,instance.getY()});
+        positions.add(new float[]{instance.getX() + 0.5f,0,instance.getY() + 0.5f});
         instanceSet.setOutdated(true);
         instanceSet.updateVbo();
     }
