@@ -9,11 +9,20 @@ public abstract class GameEntity {
 
 
     protected TexturedModel texturedModel;
+    protected boolean rigidBody = true;
 
     /**
      * Override to set the TexturedModel for that specific object.
      */
     public abstract void generateTexturedModel();
+
+    public boolean isRigidBody() {
+        return rigidBody;
+    }
+
+    public void setRigidBody(boolean rigidBody) {
+        this.rigidBody = rigidBody;
+    }
 
     public TexturedModel getTexturedModel() {
         return texturedModel;
