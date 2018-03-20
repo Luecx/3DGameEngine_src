@@ -1,4 +1,4 @@
-package projects.mediavle_game.map.entities;
+package projects.mediavle_game.map.entities.abs;
 
 import engine.linear.entities.TexturedModel;
 
@@ -8,16 +8,17 @@ import engine.linear.entities.TexturedModel;
 public abstract class GameEntity {
 
 
-    protected static TexturedModel texturedModel;
+    protected TexturedModel texturedModel;
 
     /**
      * Override to set the TexturedModel for that specific object.
      */
     public abstract void generateTexturedModel();
 
-    public static TexturedModel getTexturedModel() {
+    public TexturedModel getTexturedModel() {
         return texturedModel;
     }
+
 
 
 }

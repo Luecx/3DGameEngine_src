@@ -148,7 +148,7 @@ public class OBJConverter {
 
                 if(normalMapping){
 //                    data.getTangents()[i * 3 + 0] = vertices.get(i).getTangent().x;
-//                    data.getTangents()[i * 3 + 1] = vertices.get(i).getTangent().y;
+//                    data.getTangents()[i * 3 + 1] = vertices.get(i).getTangent().z;
 //                    data.getTangents()[i * 3 + 2] = vertices.get(i).getTangent().z;
                     data.getTangents()[i * 3 + 0] = 1.0f;
                     data.getTangents()[i * 3 + 1] = 1.0f;

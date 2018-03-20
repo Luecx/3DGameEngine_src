@@ -47,7 +47,7 @@ public class Missile extends Group{
             }
             this.entity = new Entity(texturedModel);
             this.entity.increaseRotation(0,0,90);
-            //this.entity.setScale(plane.getScale().x, plane.getScale().y, plane.getScale().z);
+            //this.entity.setScale(plane.getScale().x, plane.getScale().z, plane.getScale().z);
             this.entity.setPosition(new Vector3f(start));
             this.target = target;
             this.speed = speed;

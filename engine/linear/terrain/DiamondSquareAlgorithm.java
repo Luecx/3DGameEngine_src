@@ -57,7 +57,7 @@ public class DiamondSquareAlgorithm {
             //generate the new square values
             for(int x=0;x<DATA_SIZE-1;x+=sideLength){
                 for(int y=0;y<DATA_SIZE-1;y+=sideLength){
-                    //x, y is upper left corner of square
+                    //x, z is upper left corner of square
                     //calculate average of existing corners
                     double avg = data[x][y] + //top left
                             data[x+sideLength][y] +//top right
@@ -80,12 +80,12 @@ public class DiamondSquareAlgorithm {
             //NOTE: if the data shouldn't wrap then x < DATA_SIZE
             //to generate the far edge values
             for(int x=0;x<DATA_SIZE-1;x+=halfSide){
-                //and y is x offset by half a side, but moved by
+                //and z is x offset by half a side, but moved by
                 //the full side length
-                //NOTE: if the data shouldn't wrap then y < DATA_SIZE
+                //NOTE: if the data shouldn't wrap then z < DATA_SIZE
                 //to generate the far edge values
                 for(int y=(x+halfSide)%sideLength;y<DATA_SIZE-1;y+=sideLength){
-                    //x, y is center of diamond
+                    //x, z is center of diamond
                     //note we must use mod  and add DATA_SIZE for subtraction
                     //so that we can wrap around the array to find the corners
                     double avg =

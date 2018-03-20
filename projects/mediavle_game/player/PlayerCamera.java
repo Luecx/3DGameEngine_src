@@ -10,6 +10,23 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public class PlayerCamera extends PerspectiveCamera{
 
+    public PlayerCamera() {
+    }
+
+    public PlayerCamera(float x, float y, float z, float rx, float ry, float rz) {
+        super(x, y, z, rx, ry, rz);
+    }
+
+    public PlayerCamera(float x, float y, float z) {
+        super(x, y, z);
+    }
+
+    public PlayerCamera(Vector3f position, Vector3f rotation) {
+        super(position, rotation);
+    }
+
+
+
     public Vector3f lookingAt(){
         double length = this.calculateDistance(Display.getDisplayMode().getWidth() / 2, Display.getDisplayMode().getHeight()/ 2);
         Vector3f forward = (Vector3f)this.getZAxis().negate();

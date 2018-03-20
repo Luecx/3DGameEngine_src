@@ -25,7 +25,7 @@ public class CharData {
         try{
             this.digit = (char)Short.parseShort(string.substring(string.indexOf("id=") + 3,string.indexOf("id=") + 7).trim());
             this.positionX = Float.parseFloat(string.substring(string.indexOf("x=") + 2,string.indexOf("x=") + 5).trim()) / imageWidth;
-            this.positionY = Float.parseFloat(string.substring(string.indexOf("y=") + 2,string.indexOf("y=") + 5).trim()) / imageHeight;
+            this.positionY = Float.parseFloat(string.substring(string.indexOf("z=") + 2,string.indexOf("z=") + 5).trim()) / imageHeight;
             this.width = Float.parseFloat(string.substring(string.indexOf("width=") + 6,string.indexOf("width=") + 9).trim()) / imageWidth;
             this.height = Float.parseFloat(string.substring(string.indexOf("height=") + 7,string.indexOf("height=") + 10).trim()) / imageHeight;
             this.offsetX = Float.parseFloat(string.substring(string.indexOf("xoffset=") + 8,string.indexOf("xoffset=") + 11).trim()) / imageWidth;

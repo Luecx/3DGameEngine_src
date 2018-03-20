@@ -61,7 +61,7 @@ public class Chunk implements SourceElement{
         Vector2f delta = new Vector2f(x - v1.x , z - v1.y);
         Vector2f index = new Vector2f((int)((v1.x - startX) / stretchFactor),(int)((v1.y - startY) / stretchFactor));
         if(index.x < 0 || index.x >= vertexCount || index.y < 0 || index.y >= vertexCount) return 1000000;
-//        if(x - v1.x  + z - v1.y  < stretchFactor) {
+//        if(x - v1.x  + z - v1.z  < stretchFactor) {
             return Vector3f.add(
                     new Vector3f(delta.x,(heights[(int)index.x + 1][(int)index.y] - heights[(int)index.x][(int)index.y]) * (delta.x / stretchFactor),0),
                     new Vector3f(0,(heights[(int)index.x][(int)index.y + 1] - heights[(int)index.x][(int)index.y]) * (delta.y / stretchFactor),delta.y)

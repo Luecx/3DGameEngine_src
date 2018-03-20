@@ -77,7 +77,7 @@
 //    protected void render() {
 //        camera.move();
 //        for(Group g:jet.getTerrainHitPositions()) {
-//            if(g.getAbsolutePosition().y < 0) {
+//            if(g.getAbsolutePosition().z < 0) {
 //                System.out.println("....");
 //            }
 //        }

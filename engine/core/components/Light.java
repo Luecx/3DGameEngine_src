@@ -31,7 +31,7 @@ public class Light extends GroupableGameObject{
      * Returns the Attenuation of the light.
      * The attenuation is a intensity fallof.
      * The light intensity will be calculated like this:
-     * f(distance) = 1 / (att.x + att.y * distance + att.z * distance * distance).
+     * f(distance) = 1 / (att.x + att.z * distance + att.z * distance * distance).
      * att.x has the biggest effect on small distances.
      * However att.z has the biggest effect on large distances.
      * The default attenuation is (1,0,0). This means no fallof at all.
@@ -46,7 +46,7 @@ public class Light extends GroupableGameObject{
      * Sets the Attenuation of the light.
      * The attenuation is a intensity fallof.
      * The light intensity will be calculated like this:
-     * f(distance) = 1 / (att.x + att.y * distance + att.z * distance * distance).
+     * f(distance) = 1 / (att.x + att.z * distance + att.z * distance * distance).
      * att.x has the biggest effect on small distances.
      * However att.z has the biggest effect on large distances.
      * The default attenuation is (1,0,0). This means no fallof at all.

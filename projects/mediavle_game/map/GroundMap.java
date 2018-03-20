@@ -5,7 +5,7 @@ import engine.linear.entities.TexturedModel;
 import engine.linear.loading.Loader;
 import engine.linear.loading.OBJLoader;
 import engine.linear.material.EntityMaterial;
-import projects.mediavle_game.map.entities.UniqueGameEntity;
+import projects.mediavle_game.map.entities.abs.UniqueGameEntity;
 
 /**
  * Created by finne on 20.03.2018.
@@ -29,9 +29,10 @@ public class GroundMap extends UniqueGameEntity {
 
     private void initModels() {
         this.generateTexturedModel();
-        this.generateEntity(0,0);
+        this.generateEntity();
         this.entity.setScale(this.width,1, this.getHeight());
         this.entity.setPosition(0,0,this.width);
+
 
 
         /**

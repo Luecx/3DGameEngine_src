@@ -49,6 +49,10 @@ public class InstanceSet implements SourceElement{
 		return this.positions.get(index);
 	}
 
+	public void setOutdated(boolean outdated) {
+		this.outdated = outdated;
+	}
+
 	public synchronized void removeInstance(float x, float y, float z){
 		for(int i = 0; i < positions.size(); i++){
 			if(positions.get(i)[0] == x && positions.get(i)[1] == y && positions.get(i)[2] == z){

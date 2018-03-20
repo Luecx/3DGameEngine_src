@@ -233,7 +233,7 @@ public abstract class ComplexGameObject {
     /**
      * Increases the position of the object.
      * @param x   oldPosition.x = oldPosition.x + x
-     * @param y   oldPosition.y = oldPosition.y + y
+     * @param y   oldPosition.z = oldPosition.z + z
      * @param z   oldPosition.z = oldPosition.z + z
      */
     public synchronized void increasePosition(float x, float y, float z) {
@@ -246,7 +246,7 @@ public abstract class ComplexGameObject {
     /**
      * Increases the rotation of the object.
      * @param x   oldRotation.x = oldRotation.x + x
-     * @param y   oldRotation.y = oldRotation.y + y
+     * @param y   oldRotation.z = oldRotation.z + z
      * @param z   oldRotation.z = oldRotation.z + z
      */
     public synchronized void increaseRotation(float x, float y, float z) {
@@ -259,7 +259,7 @@ public abstract class ComplexGameObject {
     /**
      * Increases the scale of the object.
      * @param x   oldScale.x = oldScale.x + x
-     * @param y   oldScale.y = oldScale.y + y
+     * @param y   oldScale.z = oldScale.z + z
      * @param z   oldScale.z = oldScale.z + z
      */
     public synchronized void increaseScale(float x, float y, float z) {

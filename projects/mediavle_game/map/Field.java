@@ -1,6 +1,6 @@
 package projects.mediavle_game.map;
 
-import projects.mediavle_game.map.entities.UniqueGameEntity;
+import projects.mediavle_game.map.entities.abs.UniqueGameEntity;
 
 /**
  * Created by finne on 20.03.2018.
