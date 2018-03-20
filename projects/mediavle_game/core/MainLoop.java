@@ -1,10 +1,12 @@
 package projects.mediavle_game.core;
 
 import engine.core.components.Light;
+import engine.core.master.DisplayManager;
 import engine.core.master.RenderCore;
 import engine.core.system.Sys;
 import projects.mediavle_game.map.GroundMap;
 import projects.mediavle_game.map.entities.obs.Tree;
+import projects.mediavle_game.player.Player;
 import projects.mediavle_game.player.PlayerCamera;
 
 import java.util.ArrayList;
@@ -15,7 +17,8 @@ import java.util.ArrayList;
 public class MainLoop extends RenderCore {
 
 
-    private PlayerCamera perspectiveCamera = new PlayerCamera(500,10,500);
+    //private PlayerCamera perspectiveCamera = new PlayerCamera(500,10,500);
+    private Player player = new Player();
     private ArrayList<Light> lights = new ArrayList<>();
 
     private GroundMap groundMap;
@@ -47,11 +50,13 @@ public class MainLoop extends RenderCore {
     @Override
     protected void render() {
 
-        Sys.NORMAL_ENTITY_SYSTEM.render(lights, perspectiveCamera);
-        Sys.INSTANCED_ENTITY_SYSTEM.render(lights, perspectiveCamera);
+        Sys.NORMAL_ENTITY_SYSTEM.render(lights, player.getPerspectiveCamera());
+        Sys.INSTANCED_ENTITY_SYSTEM.render(lights, player.getPerspectiveCamera());
 
-        perspectiveCamera.move();
+        player.move(groundMap);
+        //perspectiveCamera.move();
         //System.out.println(perspectiveCamera.lookingAtField());
+        System.out.println(1d/ DisplayManager.processedFrameTime());
 
     }
 

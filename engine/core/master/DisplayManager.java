@@ -16,8 +16,8 @@ import org.lwjgl.opengl.*;
  */
 public class DisplayManager {
     
-    private static final int WIDTH = 720;
-    private static final int HEIGHT = 480;
+    private static final int WIDTH = 1920;
+    private static final int HEIGHT = 1080;
     private static final int FPS_CAP = 120;
     
     
@@ -50,7 +50,7 @@ public class DisplayManager {
             Display.setDisplayMode(mode);
             Display.create(new PixelFormat().withSamples(1), attribs);
             Display.setFullscreen(false);
-            Mouse.setGrabbed(false);
+            Mouse.setGrabbed(true);
             GL11.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_NICEST);
           
         } catch (LWJGLException ex) {
