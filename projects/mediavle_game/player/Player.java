@@ -9,6 +9,7 @@ import projects.mediavle_game.map.GroundMap;
 public class Player {
     private PlayerCamera perspectiveCamera = new PlayerCamera(500, 1.8f, 500);
     private float mouseSens = 0.1f;
+    private float forwardSpeed = 4;
 
     public void move(GroundMap groundMap) {
         perspectiveCamera.increaseRotation(Mouse.getDY() * mouseSens, Mouse.getDX() * -1 * mouseSens, 0);
@@ -17,12 +18,17 @@ public class Player {
         else if (perspectiveCamera.getRotation().x < -90)
             perspectiveCamera.getRotation().x = -90;
 
+        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+            forwardSpeed = 20;
+        else
+            forwardSpeed = 4;
+
         Vector3f forward = (Vector3f) (perspectiveCamera.getZAxis().negate());
         Vector3f sideward = (Vector3f) (perspectiveCamera.getXAxis().negate());
-        Vector3f direction = (Vector3f) (new Vector3f(forward.x, 0, forward.z).normalise().scale(4 * (float) DisplayManager.processedFrameTime()));
+        Vector3f direction = (Vector3f) (new Vector3f(forward.x, 0, forward.z).normalise().scale(forwardSpeed * (float) DisplayManager.processedFrameTime()));
         Vector3f directionSide = (Vector3f) (new Vector3f(sideward.x, 0, sideward.z).normalise().scale(2 * (float) DisplayManager.processedFrameTime()));
 
-        Vector3f pos = perspectiveCamera.getPosition();
+        Vector3f pos = new Vector3f(perspectiveCamera.getPosition());
 
 
         if (Keyboard.isKeyDown(Keyboard.KEY_W))
