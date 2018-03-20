@@ -21,4 +21,9 @@ public class TreeSet extends InstancedGameEntitySet<Tree> {
         this.texturedModel = new TexturedModel(model, material);
         this.generateInstanceSet();
     }
+
+    @Override
+    public void destroy() {
+
+    }
 }

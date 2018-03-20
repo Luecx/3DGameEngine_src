@@ -3,6 +3,7 @@ package projects.mediavle_game.player;
 import engine.core.master.DisplayManager;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import projects.mediavle_game.map.GroundMap;
 
@@ -34,17 +35,26 @@ public class Player {
         if (Keyboard.isKeyDown(Keyboard.KEY_W))
             perspectiveCamera.increasePosition(direction);
         if (Keyboard.isKeyDown(Keyboard.KEY_S))
-            perspectiveCamera.increasePosition((Vector3f)direction.scale(-.2f));
+            perspectiveCamera.increasePosition((Vector3f) direction.scale(-.2f));
         if (Keyboard.isKeyDown(Keyboard.KEY_A))
             perspectiveCamera.increasePosition(directionSide);
         if (Keyboard.isKeyDown(Keyboard.KEY_D))
-            perspectiveCamera.increasePosition((Vector3f)directionSide.negate());
+            perspectiveCamera.increasePosition((Vector3f) directionSide.negate());
 
-        if(groundMap.rigidBody(perspectiveCamera.getAbsolutePosition().x, perspectiveCamera.getAbsolutePosition().z)){
+        if (groundMap.rigidBody(perspectiveCamera.getAbsolutePosition().x, perspectiveCamera.getAbsolutePosition().z)) {
             perspectiveCamera.setPosition(pos);
             System.out.println("true");
         }
+
+        if (Mouse.isButtonDown(0)) {
+            Vector2f look = this.perspectiveCamera.lookingAtField();
+            if (groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity() != null) {
+                groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity().destroy();
+                groundMap.getFields()[(int) look.x][(int) look.y].setUniqueGameEntity(null);
+            }
+        }
     }
+
 
     public PlayerCamera getPerspectiveCamera() {
         return perspectiveCamera;

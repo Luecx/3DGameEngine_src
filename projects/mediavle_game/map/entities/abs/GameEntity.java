@@ -24,6 +24,8 @@ public abstract class GameEntity {
         this.rigidBody = rigidBody;
     }
 
+    public abstract void destroy();
+
     public TexturedModel getTexturedModel() {
         return texturedModel;
     }
