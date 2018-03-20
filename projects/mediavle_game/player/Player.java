@@ -11,6 +11,7 @@ public class Player {
     private PlayerCamera perspectiveCamera = new PlayerCamera(500, 1.8f, 500);
     private float mouseSens = 0.1f;
     private float forwardSpeed = 4;
+    private int score;
 
     public void move(GroundMap groundMap) {
         perspectiveCamera.increaseRotation(Mouse.getDY() * mouseSens, Mouse.getDX() * -1 * mouseSens, 0);
@@ -43,7 +44,6 @@ public class Player {
 
         if (groundMap.rigidBody(perspectiveCamera.getAbsolutePosition().x, perspectiveCamera.getAbsolutePosition().z)) {
             perspectiveCamera.setPosition(pos);
-            System.out.println("true");
         }
 
         if (Mouse.isButtonDown(0)) {
@@ -52,9 +52,12 @@ public class Player {
                 if (groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity() != null) {
                     groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity().destroyEntity();
                     groundMap.getFields()[(int) look.x][(int) look.y].setUniqueGameEntity(null);
+                    score ++;
                 }
             }
         }
+
+        System.out.println(score);
     }
 
 
