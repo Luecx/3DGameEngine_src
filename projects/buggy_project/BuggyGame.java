@@ -49,6 +49,8 @@ public abstract class BuggyGame<W extends WorldInterface, B extends BuggyInterfa
         buggy.process(DisplayManager.processedFrameTime(), world);
         buggy.spawnParticles();
 
+        System.out.println(buggy.getActiveCamera().getAbsolutePosition());
+
         Sys.SKYDOME_SYSTEM.render(buggy.getActiveCamera());
         Sys.ADVANCED_TERRAIN_SYSTEM.render(world.getLights(), buggy.getActiveCamera());
         Sys.PARTICLE_SYSTEM.render(buggy.getActiveCamera());

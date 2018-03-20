@@ -33,10 +33,10 @@ uniform vec4 reflectivity;
 
 uniform vec3 fogColor;
 
-uniform float distA = 120;
-uniform float distB = 300;
-uniform float overlayA = 500;
-uniform float overlayB = 800;
+uniform float distA = 25;
+uniform float distB = 60;
+uniform float overlayA = 70;
+uniform float overlayB = 300;
 
 vec4 samplColorTex(vec2 coords) {
     return

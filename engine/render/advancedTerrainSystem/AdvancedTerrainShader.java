@@ -3,7 +3,7 @@ package engine.render.advancedTerrainSystem;
 import engine.core.components.Light;
 import engine.core.master.RenderSettings;
 import engine.core.system.ShaderProgram;
-import engine.linear.terrain.TerrainMultimapTexturePack;
+import engine.linear.material.TerrainMultimapTexturePack;
 import engine.render.normalentitysystem.NormalEntityShader;
 import org.lwjgl.util.vector.Matrix4f;
 
