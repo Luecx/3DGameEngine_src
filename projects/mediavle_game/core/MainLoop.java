@@ -37,6 +37,7 @@ public class MainLoop extends RenderCore {
             int y = (int)(Math.random() * 1000);
             Tree tree = new Tree(x,y);
             groundMap.getFields()[x][y].setUniqueGameEntity(tree);
+            tree.generateEntity();
         }
     }
 
@@ -56,7 +57,7 @@ public class MainLoop extends RenderCore {
         player.move(groundMap);
         //perspectiveCamera.move();
         //System.out.println(perspectiveCamera.lookingAtField());
-        System.out.println(1d/ DisplayManager.processedFrameTime());
+        //System.out.println(1d/ DisplayManager.processedFrameTime());
 
     }
 
