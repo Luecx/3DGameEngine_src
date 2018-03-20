@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class MainLoop extends RenderCore {
 
 
-    private PlayerCamera perspectiveCamera = new PlayerCamera(1,2,3);
+    private PlayerCamera perspectiveCamera = new PlayerCamera(500,10,500);
     private ArrayList<Light> lights = new ArrayList<>();
 
     private GroundMap groundMap;
