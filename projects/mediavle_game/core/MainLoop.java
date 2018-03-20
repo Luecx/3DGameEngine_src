@@ -5,8 +5,8 @@ import engine.core.components.PerspectiveCamera;
 import engine.core.master.DisplayManager;
 import engine.core.master.RenderCore;
 import engine.core.system.Sys;
-import org.lwjgl.opengl.Display;
 import projects.mediavle_game.map.GroundMap;
+import projects.mediavle_game.player.PlayerCamera;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class MainLoop extends RenderCore {
 
 
-    private PerspectiveCamera perspectiveCamera = new PerspectiveCamera();
+    private PlayerCamera perspectiveCamera = new PlayerCamera();
     private ArrayList<Light> lights = new ArrayList<>();
 
     private GroundMap groundMap;
@@ -36,8 +36,10 @@ public class MainLoop extends RenderCore {
 
     @Override
     protected void render() {
-        perspectiveCamera.move();
         Sys.NORMAL_ENTITY_SYSTEM.render(lights, perspectiveCamera);
+
+        perspectiveCamera.move();
+        System.out.println(perspectiveCamera.lookingAtField());
 
     }
 

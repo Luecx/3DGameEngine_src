@@ -1,4 +1,4 @@
-package projects.mediavle_game.map;
+package projects.mediavle_game.map.entities;
 
 import engine.core.exceptions.CoreException;
 import engine.core.system.Sys;
@@ -8,9 +8,8 @@ import engine.linear.entities.TexturedModel;
 /**
  * Created by finne on 20.03.2018.
  */
-public abstract class UniqueGameEntity {
+public abstract class UniqueGameEntity extends GameEntity{
 
-    protected static TexturedModel texturedModel;
 
     protected Entity entity;
 
@@ -26,14 +25,7 @@ public abstract class UniqueGameEntity {
         this.height = height;
     }
 
-    /**
-     * Override to set the TexturedModel for that specific object.
-     */
-    public abstract void generateTexturedModel();
 
-    public static TexturedModel getTexturedModel() {
-        return texturedModel;
-    }
 
     public int getX() {
         return x;

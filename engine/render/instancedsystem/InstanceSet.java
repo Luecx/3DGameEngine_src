@@ -54,6 +54,13 @@ public class InstanceSet implements SourceElement{
 			if(positions.get(i)[0] == x && positions.get(i)[1] == y && positions.get(i)[2] == z){
 				positions.remove(i);
 			}
+		}outdated = true;
+	}
+
+	public synchronized void removeInstance(int index) {
+		if(index >= 0 && index < positions.size()) {
+			positions.remove(index);
+			outdated = true;
 		}
 	}
 
