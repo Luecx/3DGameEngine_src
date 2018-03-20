@@ -28,13 +28,16 @@ public class MainLoop extends RenderCore {
 
         groundMap = new GroundMap(1000,1000);
 
-        Tree tree = new Tree(10,10);
-        Tree tree1 = new Tree(15,10);
-        Tree tree2 = new Tree(20,10);
-        tree.generateEntity();
-        tree1.generateEntity();
-        tree2.generateEntity();
+
+        for(int i = 0; i < 5000; i++) {
+            int x = (int)(Math.random() * 1000);
+            int y = (int)(Math.random() * 1000);
+            Tree tree = new Tree(x,y);
+            groundMap.getFields()[x][y].setUniqueGameEntity(tree);
+        }
     }
+
+
 
     @Override
     protected void onDisable() {

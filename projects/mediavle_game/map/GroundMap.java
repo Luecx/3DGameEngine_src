@@ -27,6 +27,14 @@ public class GroundMap extends UniqueGameEntity {
         initGame();
     }
 
+    public Field[][] getFields() {
+        return fields;
+    }
+
+    public void setFields(Field[][] fields) {
+        this.fields = fields;
+    }
+
     private void initModels() {
         this.generateTexturedModel();
         this.generateEntity();
@@ -40,6 +48,13 @@ public class GroundMap extends UniqueGameEntity {
          * new UniqueGameEntity(0,0,0,0).generateTexturedModel();
          *
          **/
+    }
+
+    public boolean rigidBody(float x, float z) {
+        if(x > 0 && z > 0 && x < this.width && z < this.height){
+            if(fields[(int)x][(int)z].getUniqueGameEntity().isRigidBody()) return true;
+        }
+        return false;
     }
 
     @Override

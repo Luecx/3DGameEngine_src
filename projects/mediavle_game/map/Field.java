@@ -1,19 +1,19 @@
 package projects.mediavle_game.map;
 
-import projects.mediavle_game.map.entities.abs.UniqueGameEntity;
+import projects.mediavle_game.map.entities.abs.GameEntity;
 
 /**
  * Created by finne on 20.03.2018.
  */
 public class Field {
 
-    private UniqueGameEntity uniqueGameEntity;
+    private GameEntity gameEntity;
     private int x;
     private int z;
 
 
-    public Field(UniqueGameEntity uniqueGameEntity) {
-        this.uniqueGameEntity = uniqueGameEntity;
+    public Field(GameEntity uniqueGameEntity) {
+        this.gameEntity = uniqueGameEntity;
     }
 
     public Field(int x, int z) {
@@ -21,8 +21,8 @@ public class Field {
         this.z = z;
     }
 
-    public Field(UniqueGameEntity uniqueGameEntity, int x, int z) {
-        this.uniqueGameEntity = uniqueGameEntity;
+    public Field(GameEntity uniqueGameEntity, int x, int z) {
+        this.gameEntity = uniqueGameEntity;
         this.x = x;
         this.z = z;
     }
@@ -46,11 +46,11 @@ public class Field {
     public Field() {
     }
 
-    public UniqueGameEntity getUniqueGameEntity() {
-        return uniqueGameEntity;
+    public GameEntity getGameEntity() {
+        return gameEntity;
     }
 
-    public void setUniqueGameEntity(UniqueGameEntity uniqueGameEntity) {
-        this.uniqueGameEntity = uniqueGameEntity;
+    public void setUniqueGameEntity(GameEntity uniqueGameEntity) {
+        this.gameEntity = uniqueGameEntity;
     }
 }
