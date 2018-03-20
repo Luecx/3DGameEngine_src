@@ -3,6 +3,7 @@ package engine.core.components;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -227,6 +228,14 @@ public abstract class GroupableGameObject extends ComplexGameObject{
      */
     public boolean removeChild(GroupableGameObject child) {
         return child.removeParent();
+    }
+
+    /**
+     * Returns the group that are ordered below this group
+     * @return
+     */
+    public ArrayList<Group> getChilds() {
+        return this.getChilds();
     }
 
     public void printStatus() {

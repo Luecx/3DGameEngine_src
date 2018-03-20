@@ -61,7 +61,47 @@ public class DisplayManager {
         time.setCheckPoint();
         
     }
-    
+
+    public static void createDisplay(AWTGLCanvas canvas, int width, int height) {
+
+        ContextAttribs attribs = new ContextAttribs(3,3).withForwardCompatible(true).withProfileCore(true);
+
+        try {
+
+            DisplayMode modes[] = Display.getAvailableDisplayModes();
+            DisplayMode mode = new DisplayMode(width,height);
+
+            for (int i=0; i< modes.length; i++) {
+                DisplayMode m = modes[i];
+                int bpp = Display.getDisplayMode().getBitsPerPixel();
+                if (m.getBitsPerPixel() == bpp
+                        ) {
+                    if ( m.getWidth() <= WIDTH && m.getHeight() <= HEIGHT &&
+                            m.getFrequency() <= 144)
+                        mode = m;
+                    if ( m.getWidth() == WIDTH && m.getHeight() == HEIGHT &&
+                            m.getFrequency() == 60)
+                        break;
+                }
+            }
+
+            Display.setDisplayMode(mode);
+            Display.create(new PixelFormat().withSamples(1), attribs);
+            Display.setParent(canvas);
+            Display.setVSyncEnabled(true);
+            Mouse.setGrabbed(true);
+            GL11.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_NICEST);
+
+        } catch (LWJGLException ex) {
+            ex.printStackTrace();
+        }
+
+        GL11.glViewport(0, 0, WIDTH, HEIGHT);
+        time.setCheckPoint();
+
+    }
+
+
     public static void updateDisplay() {
         Display.sync(FPS_CAP);
         Display.update();

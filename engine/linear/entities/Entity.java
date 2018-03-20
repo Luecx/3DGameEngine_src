@@ -1,5 +1,6 @@
 package engine.linear.entities;
 
+import engine.core.components.Group;
 import engine.core.components.GroupableGameObject;
 import engine.core.sourceelements.RawModel;
 import engine.core.sourceelements.SourceElement;
@@ -8,7 +9,7 @@ import org.lwjgl.util.vector.Vector3f;
 /**
  * Created by Luecx on 12.01.2017.
  */
-public class Entity extends GroupableGameObject implements SourceElement {
+public class Entity extends Group implements SourceElement {
     private TexturedModel model;
 
     public Entity() {
