@@ -5,6 +5,7 @@ import engine.core.master.DisplayManager;
 import engine.core.master.RenderCore;
 import engine.core.system.Sys;
 import projects.mediavle_game.map.GroundMap;
+import projects.mediavle_game.map.entities.obs.Townhall;
 import projects.mediavle_game.map.entities.obs.Tree;
 import projects.mediavle_game.player.Player;
 import projects.mediavle_game.player.PlayerCamera;
@@ -39,6 +40,8 @@ public class MainLoop extends RenderCore {
             groundMap.getFields()[x][y].setUniqueGameEntity(tree);
             tree.generateEntity();
         }
+        Townhall townhall = new Townhall(510,510);
+        townhall.generateEntity();
     }
 
 
