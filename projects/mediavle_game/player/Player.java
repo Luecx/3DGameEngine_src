@@ -53,11 +53,10 @@ public class Player {
                     groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity().destroyEntity();
                     groundMap.getFields()[(int) look.x][(int) look.y].setUniqueGameEntity(null);
                     score ++;
+                    System.out.println(score);
                 }
             }
         }
-
-        System.out.println(score);
     }
 
 
