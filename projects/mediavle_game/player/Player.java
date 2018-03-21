@@ -5,7 +5,9 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
+import projects.mediavle_game.gui.GuiInit;
 import projects.mediavle_game.map.GroundMap;
+import projects.mediavle_game.player.items.Item;
 
 public class Player {
     private PlayerCamera perspectiveCamera = new PlayerCamera(500, 1.65f, 500);
@@ -65,12 +67,24 @@ public class Player {
         }
     }
 
-
     public PlayerCamera getPerspectiveCamera() {
         return perspectiveCamera;
     }
 
     public void setPerspectiveCamera(PlayerCamera perspectiveCamera) {
         this.perspectiveCamera = perspectiveCamera;
+    }
+
+
+    private Item util_item;
+    private Item house_item;
+
+    public void setItem(Item i){
+        if(i.getType() == Item.TYPE_HOUSE) {
+            house_item = i;
+        }else{
+            util_item = i;
+        }
+        GuiInit.setItem(i);
     }
 }
