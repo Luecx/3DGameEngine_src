@@ -2,6 +2,7 @@ package projects.mediavle_game.map.entities.abs;
 
 import engine.core.exceptions.CoreException;
 import engine.core.system.Sys;
+import engine.linear.entities.TexturedModel;
 import engine.render.instancedsystem.InstanceSet;
 
 import java.util.ArrayList;
@@ -9,17 +10,14 @@ import java.util.ArrayList;
 /**
  * Created by finne on 20.03.2018.
  */
-public abstract class InstancedGameEntitySet<T extends InstancedGameEntity> extends GameEntity{
+public abstract class InstancedGameEntitySet<T extends InstancedGameEntity>{
+
+    protected ArrayList<T> instances = new ArrayList<T>();
+    protected ArrayList<float[]> positions = new ArrayList<>();
+
+    protected InstanceSet instanceSet;
 
 
-    private ArrayList<T> instances = new ArrayList<T>();
-    private ArrayList<float[]> positions = new ArrayList<>();
-
-    private InstanceSet instanceSet;
-
-    public InstancedGameEntitySet() {
-        this.generateTexturedModel();
-    }
 
     public void addInstance(T instance) {
         instances.add(instance);
@@ -38,19 +36,5 @@ public abstract class InstancedGameEntitySet<T extends InstancedGameEntity> exte
         instanceSet.updateVbo();
     }
 
-    @Override
-    public void destroyEntity() {
 
-    }
-
-    public void generateInstanceSet() {
-        this.instanceSet = new InstanceSet(texturedModel);
-
-        this.positions = instanceSet.getPositions();
-        try {
-            Sys.INSTANCED_ENTITY_SYSTEM.addElement(instanceSet);
-        } catch (CoreException e) {
-            e.printStackTrace();
-        }
-    }
 }

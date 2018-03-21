@@ -22,6 +22,7 @@ public abstract class GuiElement extends Material implements SourceElement{
     public static final int ANIMATION_PROGRESS_TO_A= 3;
 
     private int displayMode;
+    private boolean visible = true;
 
     private Vector2f location = new Vector2f(0,0);
     private Vector2f scale = new Vector2f(0.5f,1);
@@ -54,6 +55,14 @@ public abstract class GuiElement extends Material implements SourceElement{
     public GuiElement(int colorMap, int displayMode) {
         super(colorMap);
         this.displayMode = displayMode;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public GuiElement(String colorMap, int displayMode) {

@@ -42,7 +42,7 @@ public class Player {
         if (Keyboard.isKeyDown(Keyboard.KEY_D))
             perspectiveCamera.increasePosition((Vector3f) directionSide.negate());
 
-        if (groundMap.rigidBody(perspectiveCamera.getAbsolutePosition().x, perspectiveCamera.getAbsolutePosition().z)) {
+        if (groundMap.isRigidBody(perspectiveCamera.getAbsolutePosition().x, perspectiveCamera.getAbsolutePosition().z)) {
             perspectiveCamera.setPosition(pos);
         }
 
@@ -57,7 +57,7 @@ public class Player {
             }
         }
 
-        System.out.println(score);
+        //System.out.println(score);
     }
 
 

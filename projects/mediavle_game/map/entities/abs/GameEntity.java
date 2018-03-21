@@ -7,29 +7,23 @@ import engine.linear.entities.TexturedModel;
  */
 public abstract class GameEntity {
 
+    protected int x;
+    protected int y;
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
 
-    protected TexturedModel texturedModel;
     protected boolean rigidBody = true;
-
-    /**
-     * Override to set the TexturedModel for that specific object.
-     */
-    public abstract void generateTexturedModel();
-
     public boolean isRigidBody() {
         return rigidBody;
     }
-
     public void setRigidBody(boolean rigidBody) {
         this.rigidBody = rigidBody;
     }
 
     public abstract void destroyEntity();
-
-    public TexturedModel getTexturedModel() {
-        return texturedModel;
-    }
-
-
-
+    public abstract void generateEntity();
 }

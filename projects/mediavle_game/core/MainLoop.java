@@ -4,9 +4,12 @@ import engine.core.components.Light;
 import engine.core.master.DisplayManager;
 import engine.core.master.RenderCore;
 import engine.core.system.Sys;
+import projects.mediavle_game.gui.GuiInit;
 import projects.mediavle_game.map.GroundMap;
+import projects.mediavle_game.map.entities.obs.Ground;
 import projects.mediavle_game.map.entities.obs.Townhall;
 import projects.mediavle_game.map.entities.obs.Tree;
+import projects.mediavle_game.map.entities.obs.TreeSet;
 import projects.mediavle_game.player.Player;
 import projects.mediavle_game.player.PlayerCamera;
 
@@ -17,34 +20,29 @@ import java.util.ArrayList;
  */
 public class MainLoop extends RenderCore {
 
-
-    //private PlayerCamera perspectiveCamera = new PlayerCamera(500,10,500);
     private Player player = new Player();
     private ArrayList<Light> lights = new ArrayList<>();
 
     private GroundMap groundMap;
-//hallo
 
     @Override
     protected void onEnable() {
         Sys.enableAll();
         lights.add(new Light(10000,10000,10000));
 
-        groundMap = new GroundMap(1000,1000);
+        Ground.generateTexturedModel();
+        Townhall.generateTexturedModel();
+        TreeSet.generateTexturedModel();
 
+        GuiInit.generateTextures();
 
-        for(int i = 0; i < 5000; i++) {
-            int x = (int)(Math.random() * 1000);
-            int y = (int)(Math.random() * 1000);
-            Tree tree = new Tree(x,y);
-            groundMap.getFields()[x][y].setUniqueGameEntity(tree);
-            tree.generateEntity();
-        }
+        groundMap = new GroundMap();
+        groundMap.generateEntity();
+        GuiInit.initGui();
+
         Townhall townhall = new Townhall(510,510);
         townhall.generateEntity();
     }
-
-
 
     @Override
     protected void onDisable() {
@@ -56,12 +54,9 @@ public class MainLoop extends RenderCore {
 
         Sys.NORMAL_ENTITY_SYSTEM.render(lights, player.getPerspectiveCamera());
         Sys.INSTANCED_ENTITY_SYSTEM.render(lights, player.getPerspectiveCamera());
+        Sys.OVERLAY_SYSTEM.render();
 
         player.move(groundMap);
-        //perspectiveCamera.move();
-        //System.out.println(perspectiveCamera.lookingAtField());
-        //System.out.println(1d/ DisplayManager.processedFrameTime());
-
     }
 
     public static void main(String[] args) {
