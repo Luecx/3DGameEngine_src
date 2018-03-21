@@ -12,6 +12,7 @@ public class Player {
     private float mouseSens = 0.1f;
     private float forwardSpeed = 4;
     private int score;
+    private float totalWalked;
 
     public void move(GroundMap groundMap) {
         perspectiveCamera.increaseRotation(Mouse.getDY() * mouseSens, Mouse.getDX() * -1 * mouseSens, 0);
@@ -41,6 +42,11 @@ public class Player {
             perspectiveCamera.increasePosition(directionSide);
         if (Keyboard.isKeyDown(Keyboard.KEY_D))
             perspectiveCamera.increasePosition((Vector3f) directionSide.negate());
+
+        totalWalked += Vector3f.sub(perspectiveCamera.getPosition(),pos,null).length();
+        System.out.println(totalWalked);
+
+        perspectiveCamera.getPosition().y = 1.8f + (float)Math.sin(totalWalked * 2) * 0.2f;
 
         if (groundMap.rigidBody(perspectiveCamera.getAbsolutePosition().x, perspectiveCamera.getAbsolutePosition().z)) {
             perspectiveCamera.setPosition(pos);
