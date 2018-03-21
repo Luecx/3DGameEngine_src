@@ -37,6 +37,16 @@ public class Ground extends UniqueGameEntity {
         }
     }
 
+    @Override
+    public UniqueGameEntity clone() {
+        return null;
+    }
+
+    @Override
+    public TexturedModel getTexturedModel() {
+        return texturedModel;
+    }
+
     public Ground(int x, int y, int width, int height) {
         super(x, y, width, height);
     }

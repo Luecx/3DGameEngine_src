@@ -34,6 +34,8 @@ public class GroundMap extends Ground {
         initGame();
     }
 
+
+
     public Field[][] getFields() {
         return fields;
     }
@@ -49,6 +51,49 @@ public class GroundMap extends Ground {
             }
         }
         return false;
+    }
+
+    public boolean couldPlace(int x, int y, int w, int h){
+        for(int i = x; i < x + w; i++) {
+            for(int n = y; n < y + h; n++) {
+                if(fields[i][n].getGameEntity() != null){
+                    if(fields[i][n].getGameEntity().isRigidBody()){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public void place(UniqueGameEntity entity) {
+        if(couldPlace(entity.getX(),entity.getY(), entity.getWidth(), entity.getHeight())){
+            for(int i = entity.getX(); i < entity.getX() + entity.getWidth(); i++) {
+                for(int n = entity.getY(); n < entity.getY() + entity.getHeight(); n++) {
+                    fields[i][n].setUniqueGameEntity(entity);
+                }
+            }
+        }
+        entity.generateEntity();
+    }
+
+    public void destroy(int x, int y) {
+        if(fields[x][y].getGameEntity() != null) {
+            if(fields[x][y].getGameEntity() instanceof UniqueGameEntity){
+                UniqueGameEntity entity = (UniqueGameEntity) fields[x][y].getGameEntity();
+                for(int i = entity.getX(); i < entity.getX() + entity.getWidth(); i++) {
+                    for(int n = entity.getY(); n < entity.getY() + entity.getHeight(); n++) {
+                        fields[i][n].setUniqueGameEntity(null);
+                    }
+                }
+                entity.destroyEntity();
+            }
+            else{
+                fields[x][y].getGameEntity().destroyEntity();
+                fields[x][y].setUniqueGameEntity(null);
+            }
+        }
+
     }
 
     public void initGame() {

@@ -61,6 +61,14 @@ public class InstancedEntityRenderer extends AbstractRenderer<InstancedEntitySha
             GL11.glBlendFunc (GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             MasterRenderer.disableCulling();
         }
+        if(model.isWireframe()){
+            GL11.glPolygonMode( GL11.GL_FRONT_AND_BACK, GL11.GL_LINE );
+            MasterRenderer.disableCulling();
+        }else{
+            GL11.glPolygonMode( GL11.GL_FRONT_AND_BACK, GL11.GL_FILL );
+            MasterRenderer.enableCulling();
+        }
+
         shader.loadUseLighting(texture.useLighting());
         shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
         shader.loadTextureStretch(model.getTextureStretch());

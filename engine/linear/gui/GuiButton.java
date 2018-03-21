@@ -123,6 +123,7 @@ public abstract class GuiButton extends GuiElement {
                 if(clickColorEnabled){
                     super.setBlendColor(this.clickColor);
                     super.setBlendFactor(this.clickBlendFactor);
+                    this.onClick();
                 }
             }else{
                 if(hoverColorEnabled){

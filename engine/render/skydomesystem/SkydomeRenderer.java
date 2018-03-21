@@ -27,6 +27,11 @@ public class SkydomeRenderer extends AbstractRenderer<SkydomeShader>{
         GL20.glEnableVertexAttribArray(0);
         GL20.glEnableVertexAttribArray(1);
 
+
+        GL11.glPolygonMode( GL11.GL_FRONT_AND_BACK, GL11.GL_FILL );
+        MasterRenderer.enableCulling();
+
+
         shader.loadSkyboxPosition(c.getAbsolutePosition(),
                 RenderSettings.skydome_follow_x_axis,
                 RenderSettings.skydome_follow_y_axis,

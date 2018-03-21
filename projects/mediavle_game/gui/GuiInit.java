@@ -3,8 +3,11 @@ package projects.mediavle_game.gui;
 import engine.core.system.Sys;
 import engine.linear.gui.GuiPanel;
 import engine.linear.material.GuiElement;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector2f;
-import projects.mediavle_game.player.items.Item;
+import projects.mediavle_game.map.GroundMap;
+import projects.mediavle_game.map.entities.obs.Townhall;
+import projects.mediavle_game.player.Player;
 
 import java.util.ArrayList;
 
@@ -15,37 +18,42 @@ public class GuiInit {
 
     public static GuiPanel crosshair;
 
-    public static GuiPanel item_util;
     public static GuiPanel item_house;
 
-    private ArrayList<Item> house_item_list = new ArrayList<>();
-    private ArrayList<Item> util_item_list = new ArrayList<>();
+    private static ArrayList<HouseItem> houseItems = new ArrayList<>();
 
     public static void generateTextures() {
         crosshair = new GuiPanel("crosshair");
         crosshair.setLocation(new Vector2f(0,0));
-
         crosshair.setDisplayMode(GuiElement.DISPLAY_MODE_PIXEL_SPACE);
         crosshair.setScale(new Vector2f(48,48));
-    }
 
-    public static void setItem(Item i) {
-        if(i.getType() == Item.TYPE_HOUSE) item_house.setColorMap(i.guiButton.getColorMap());
-        else{
-            item_util.setColorMap(i.guiButton.getColorMap());
-        }
-    }
+        item_house = new GuiPanel("textures/colormaps/redpng");
+        item_house.setDisplayMode(GuiElement.DISPLAY_MODE_PIXEL_SPACE);
+        item_house.setLocation(new Vector2f(org.lwjgl.opengl.Display.getDisplayMode().getWidth() - 190,100));
+        item_house.setScale(new Vector2f(100,100));
 
-    public static void initGui() {
+        HouseItem.generateButtons();
+
+        houseItems.add(HouseItem.TOWNHALL);
+
         try{
             Sys.OVERLAY_SYSTEM.addElement(crosshair);
-
+            Sys.OVERLAY_SYSTEM.addElement(item_house);
         }catch (Exception e){
             e.printStackTrace();
         }
+
     }
 
+    public static void setVisible(boolean val) {
+        for(HouseItem i: houseItems) {
+            i.guiButton.setVisible(val);
+        }
+        Mouse.setGrabbed(!val);
+    }
 
-
-
+    public static void setItem(HouseItem i) {
+        item_house.setColorMap(i.guiButton.getColorMap());
+    }
 }

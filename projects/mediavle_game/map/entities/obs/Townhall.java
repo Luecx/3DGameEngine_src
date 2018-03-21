@@ -13,12 +13,12 @@ import projects.mediavle_game.map.entities.abs.UniqueGameEntity;
 /**
  * Created by Anwender on 21.03.2018.
  */
-public class Townhall extends UniqueGameEntity {
+public class Townhall extends UniqueGameEntity<Townhall> {
 
     private static TexturedModel texturedModel;
 
     public static void generateTexturedModel() {
-        RawModel model = OBJLoader.loadOBJ("models/goodTree", true);
+        RawModel model = OBJLoader.loadOBJ("5x5House", true);
         EntityMaterial material = new EntityMaterial(Loader.loadTexture("raw"));
         Townhall.texturedModel = new TexturedModel(model, material);
     }
@@ -32,6 +32,16 @@ public class Townhall extends UniqueGameEntity {
         } catch (CoreException e1) {
             e1.printStackTrace();
         }
+    }
+
+    @Override
+    public Townhall clone() {
+        return new Townhall(this.getX(), this.getY());
+    }
+
+    @Override
+    public TexturedModel getTexturedModel() {
+        return texturedModel;
     }
 
     public Townhall(int x, int y) {

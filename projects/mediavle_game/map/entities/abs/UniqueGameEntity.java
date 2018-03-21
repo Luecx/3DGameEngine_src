@@ -8,7 +8,7 @@ import engine.linear.entities.TexturedModel;
 /**
  * Created by finne on 20.03.2018.
  */
-public abstract class UniqueGameEntity extends GameEntity{
+public abstract class UniqueGameEntity<T extends UniqueGameEntity<T>> extends GameEntity{
 
 
     protected Entity entity;
@@ -41,6 +41,11 @@ public abstract class UniqueGameEntity extends GameEntity{
         }
     }
 
+    public abstract TexturedModel getTexturedModel();
 
+    public Entity getEntity() {
+        return entity;
+    }
 
+    public abstract T clone();
 }

@@ -1,14 +1,22 @@
 package projects.mediavle_game.player;
 
+import engine.core.exceptions.CoreException;
 import engine.core.master.DisplayManager;
+import engine.core.master.Time;
+import engine.core.system.Sys;
+import engine.linear.entities.Entity;
+import engine.linear.entities.TexturedModel;
+import engine.linear.material.EntityMaterial;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import projects.mediavle_game.gui.GuiInit;
+import projects.mediavle_game.gui.HouseItem;
 import projects.mediavle_game.map.GroundMap;
 import projects.mediavle_game.player.Inventory.Inventory;
 import projects.mediavle_game.player.items.Item;
+import projects.mediavle_game.map.entities.abs.UniqueGameEntity;
 
 public class Player {
     private PlayerCamera perspectiveCamera = new PlayerCamera(500, 1.65f, 500);
@@ -24,10 +32,10 @@ public class Player {
         System.out.println(inventory.checkCount(0));
 
         perspectiveCamera.increaseRotation(Mouse.getDY() * mouseSens, Mouse.getDX() * -1 * mouseSens, 0);
-        if (perspectiveCamera.getRotation().x > 90)
-            perspectiveCamera.getRotation().x = 90;
-        else if (perspectiveCamera.getRotation().x < -90)
-            perspectiveCamera.getRotation().x = -90;
+        if (perspectiveCamera.getRotation().x >= 85)
+            perspectiveCamera.getRotation().x = 85;
+        else if (perspectiveCamera.getRotation().x <= -85)
+            perspectiveCamera.getRotation().x = -85;
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
             forwardSpeed = 8;
@@ -55,9 +63,10 @@ public class Player {
         if (Keyboard.isKeyDown(Keyboard.KEY_D))
             perspectiveCamera.increasePosition((Vector3f) directionSide.negate());
 
-        totalWalked += Vector3f.sub(perspectiveCamera.getPosition(),pos,null).length();
 
-        perspectiveCamera.getPosition().y = 1.65f + (float)Math.sin(totalWalked * 2) * 0.1f;
+        totalWalked += Vector3f.sub(perspectiveCamera.getPosition(), pos, null).length();
+
+        perspectiveCamera.getPosition().y = 1.65f + (float) Math.sin(totalWalked * 2) * 0.1f;
 
         if (groundMap.isRigidBody(perspectiveCamera.getAbsolutePosition().x, perspectiveCamera.getAbsolutePosition().z)) {
             perspectiveCamera.setPosition(pos);
@@ -66,38 +75,69 @@ public class Player {
             perspectiveCamera.setPosition(pos);
         }
 
-        if (Mouse.isButtonDown(0)) {
-            Vector2f look = this.perspectiveCamera.lookingAtField();
-            if(look != null) {
-                if (groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity() != null) {
-                    groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity().destroyEntity();
-                    groundMap.getFields()[(int) look.x][(int) look.y].setUniqueGameEntity(null);
-                    inventory.giveItem(0,1,1);
-                    score ++;
-                    System.out.println(score);
+
+
+        if(perspectiveCamera.lookingAtField() != null) {
+            previewX = (int)perspectiveCamera.lookingAtField().getX();
+            previewY = (int)perspectiveCamera.lookingAtField().getY();
+        }
+
+        GuiInit.setVisible(Keyboard.isKeyDown(Keyboard.KEY_TAB));
+        if(Mouse.isButtonDown(0) &&
+                previewEntity != null &&
+                groundMap.couldPlace(previewX,previewY,previewObject.getWidth(), previewObject.getHeight())){
+            UniqueGameEntity entityToPlace = previewObject.clone();
+            entityToPlace.setX(previewX);
+            entityToPlace.setY(previewY);
+            groundMap.place(entityToPlace);
+        }
+        if(Mouse.isButtonDown(1) && previewClickTimer.timerIsUp()){
+            previewClickTimer.setTimer(0.3);
+            if(previewEntity != null) {
+                Sys.NORMAL_ENTITY_SYSTEM.removeElement(previewEntity);
+                previewObject = null;
+                previewEntity = null;
+            }else {
+                if(houseItem != null) {
+                    UniqueGameEntity e = houseItem.getUniqueGameEntity();
+                    previewObject = e;
+                    TexturedModel previewTexModel = new TexturedModel(
+                            e.getTexturedModel().getRawModel(),
+                            e.getTexturedModel().getMaterial());
+                    previewMaterial = previewTexModel.getMaterial();
+                    previewEntity = new Entity(previewTexModel);
+                    try {
+                        Sys.NORMAL_ENTITY_SYSTEM.addElement(previewEntity);
+                    } catch (CoreException e1) {
+                        e1.printStackTrace();
+                    }
                 }
+            }
+        }if(previewEntity != null){
+
+            previewEntity.setPosition(previewX,0,previewY);
+            if(!groundMap.couldPlace(previewX,previewY,previewObject.getWidth(), previewObject.getHeight())){
+                previewEntity.getModel().setWireframe(true);
+            }else{
+                previewEntity.getModel().setWireframe(false);
             }
         }
     }
 
-    public PlayerCamera getPerspectiveCamera() {
+    private static UniqueGameEntity previewObject;
+    private static Entity previewEntity;
+    private static int previewX;
+    private static int previewY;
+    private static EntityMaterial previewMaterial;
+    private static Time previewClickTimer = new Time();
+
+    public static PlayerCamera getPerspectiveCamera() {
         return perspectiveCamera;
     }
 
-    public void setPerspectiveCamera(PlayerCamera perspectiveCamera) {
-        this.perspectiveCamera = perspectiveCamera;
-    }
-
-
-    private Item util_item;
-    private Item house_item;
-
-    public void setItem(Item i){
-        if(i.getType() == Item.TYPE_HOUSE) {
-            house_item = i;
-        }else{
-            util_item = i;
-        }
+    private static HouseItem houseItem;
+    public static void setItem(HouseItem i) {
+        houseItem = i;
         GuiInit.setItem(i);
     }
 }
