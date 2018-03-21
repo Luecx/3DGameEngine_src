@@ -21,6 +21,10 @@ uniform vec3 fogColor;
 
 void main(void){
 
+    if(fogFactor > 0.9) {
+        discard;
+    }
+
 	vec3 unitNormal = normalize(surfaceNormal);
 	vec3 unitVectorToCamera = normalize(toCameraVector);
 

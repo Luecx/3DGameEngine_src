@@ -8,7 +8,7 @@ import org.lwjgl.util.vector.Vector3f;
 import projects.mediavle_game.map.GroundMap;
 
 public class Player {
-    private PlayerCamera perspectiveCamera = new PlayerCamera(500, 1.8f, 500);
+    private PlayerCamera perspectiveCamera = new PlayerCamera(500, 1.65f, 500);
     private float mouseSens = 0.1f;
     private float forwardSpeed = 4;
     private int score;
@@ -46,9 +46,9 @@ public class Player {
         totalWalked += Vector3f.sub(perspectiveCamera.getPosition(),pos,null).length();
         System.out.println(totalWalked);
 
-        perspectiveCamera.getPosition().y = 1.8f + (float)Math.sin(totalWalked * 2) * 0.2f;
+        perspectiveCamera.getPosition().y = 1.65f + (float)Math.sin(totalWalked * 2) * 0.1f;
 
-        if (groundMap.rigidBody(perspectiveCamera.getAbsolutePosition().x, perspectiveCamera.getAbsolutePosition().z)) {
+        if (groundMap.isRigidBody(perspectiveCamera.getAbsolutePosition().x, perspectiveCamera.getAbsolutePosition().z)) {
             perspectiveCamera.setPosition(pos);
         }
 

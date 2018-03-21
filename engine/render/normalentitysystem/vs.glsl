@@ -74,5 +74,5 @@ void main(void) {
 	}
 	toCameraVector = toTangentSpace * (-positionRelativeToCam.xyz);
 
-	fogFactor = 1 - exp(-pow((length(positionRelativeToCam) * fogDensity),fogGradient));
+	fogFactor = 1-exp(-pow((length(positionRelativeToCam) * fogDensity),fogGradient));
 }

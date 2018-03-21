@@ -21,7 +21,6 @@ public class GroundMap extends Ground {
     public static final int HEIGHT = 1000;
 
     Field[][] fields;
-    private static TexturedModel texturedModel;
 
     public GroundMap() {
         super(0, 0, WIDTH, HEIGHT);
@@ -53,7 +52,7 @@ public class GroundMap extends Ground {
     }
 
     public void initGame() {
-        for(int i = 0; i < 5000; i++) {
+        for(int i = 0; i < 15000; i++) {
             int x = (int) (Math.random() * WIDTH);
             int y = (int) (Math.random() * HEIGHT);
             Tree tree = new Tree(x,y);

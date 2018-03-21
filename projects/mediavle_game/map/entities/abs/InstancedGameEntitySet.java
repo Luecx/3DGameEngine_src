@@ -21,6 +21,7 @@ public abstract class InstancedGameEntitySet<T extends InstancedGameEntity>{
 
     public void addInstance(T instance) {
         instances.add(instance);
+        instanceSet.setRandomRotation(false,true,false);
         positions.add(new float[]{instance.getX() + 0.5f,0,instance.getY() + 0.5f});
         instanceSet.setOutdated(true);
         instanceSet.updateVbo();

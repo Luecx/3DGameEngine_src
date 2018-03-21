@@ -30,11 +30,11 @@ public class RenderSettings {
     public static float terrain_fog_gradient = 4f;
     public static boolean terrain_fog = false;
 
-    public static boolean entity_fog = false;
-    public static float entity_fog_density = 0.0003f;
-    public static float entity_fog_gradient = 4f;
+    public static boolean entity_fog = true;
+    public static float entity_fog_density = 0.01f;
+    public static float entity_fog_gradient = 2.5f;
     public static float entity_fog_color_red = 0.8f;
-    public static float entity_fog_color_green = 0f;
-    public static float entity_fog_color_blue = 0f;
+    public static float entity_fog_color_green = 0.9f;
+    public static float entity_fog_color_blue = 0.9f;
 
 }

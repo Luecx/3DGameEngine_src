@@ -1,9 +1,13 @@
 package projects.mediavle_game.core;
 
 import engine.core.components.Light;
+import engine.core.exceptions.CoreException;
 import engine.core.master.DisplayManager;
 import engine.core.master.RenderCore;
+import engine.core.master.RenderSettings;
 import engine.core.system.Sys;
+import engine.linear.loading.Loader;
+import engine.linear.material.SkydomeElement;
 import projects.mediavle_game.gui.GuiInit;
 import projects.mediavle_game.map.GroundMap;
 import projects.mediavle_game.map.entities.obs.Ground;
@@ -42,6 +46,17 @@ public class MainLoop extends RenderCore {
 
         Townhall townhall = new Townhall(510,510);
         townhall.generateEntity();
+
+        try {
+            RenderSettings.skydome_fog = true;
+            RenderSettings.skydome_radius = 4000;
+            RenderSettings.skydome_fog_midlevel = 0;
+            RenderSettings.skydome_fog_gradient = 5;
+            RenderSettings.skydome_fog_density = 2;
+            Sys.SKYDOME_SYSTEM.addElement(new SkydomeElement(Loader.loadTexture("raw")));
+        } catch (CoreException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -52,6 +67,7 @@ public class MainLoop extends RenderCore {
     @Override
     protected void render() {
 
+        Sys.SKYDOME_SYSTEM.render(player.getPerspectiveCamera());
         Sys.NORMAL_ENTITY_SYSTEM.render(lights, player.getPerspectiveCamera());
         Sys.INSTANCED_ENTITY_SYSTEM.render(lights, player.getPerspectiveCamera());
         Sys.OVERLAY_SYSTEM.render();

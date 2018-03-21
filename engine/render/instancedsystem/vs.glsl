@@ -25,8 +25,8 @@ uniform float fogDensity;
 void main(void) {
 
     float x = 3.14159 * randomRotation.x * fract(sin(dot(worldSpace.xz ,vec2(12.998,78.233))) * 54221.664);
-    float y = 3.14159 * randomRotation.z * fract(sin(dot(worldSpace.xy ,vec2(15.91,78.233))) * 45692.231);
-    float z = 3.14159 * randomRotation.y * fract(sin(dot(worldSpace.zy ,vec2(19.498,78.233))) * 39766.89);
+    float y = 3.14159 * randomRotation.y * fract(sin(dot(worldSpace.xy ,vec2(15.91,78.233))) * 45692.231);
+    float z = 3.14159 * randomRotation.z * fract(sin(dot(worldSpace.zy ,vec2(19.498,78.233))) * 39766.89);
 
     mat3 rotationMatrix = mat3(
         vec3(cos(y) * cos(z),-sin(x) * sin(y) * cos(z) + cos(x) * sin(z), cos(x) * sin(y) * cos(z) + sin(x) * sin(z)),
