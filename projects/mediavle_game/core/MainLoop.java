@@ -38,11 +38,10 @@ public class MainLoop extends RenderCore {
         Townhall.generateTexturedModel();
         TreeSet.generateTexturedModel();
 
-        GuiInit.generateTextures();
+        GuiInit.generateTextures(groundMap, player);
 
         groundMap = new GroundMap();
         groundMap.generateEntity();
-        GuiInit.initGui();
 
         Townhall townhall = new Townhall(510,510);
         townhall.generateEntity();
