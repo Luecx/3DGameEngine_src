@@ -1,6 +1,7 @@
 package engine.render.overlaysystem;
 
 import engine.core.master.DisplayManager;
+import engine.core.master.MasterRenderer;
 import engine.core.sourceelements.RawModel;
 import engine.core.system.AbstractRenderer;
 import engine.linear.gui.FontPanel;
@@ -24,7 +25,12 @@ public class OverlayRenderer extends AbstractRenderer<OverlayShader>{
 
 	public void render(List<GuiElement> guis){
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		
+
+
+			GL11.glPolygonMode( GL11.GL_FRONT_AND_BACK, GL11.GL_FILL );
+			MasterRenderer.enableCulling();
+
+
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 

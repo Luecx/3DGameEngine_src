@@ -1,58 +1,56 @@
 package projects.mediavle_game.gui;
 
+import engine.core.exceptions.CoreException;
+import engine.core.system.Sys;
 import engine.linear.gui.GuiButton;
 import engine.linear.material.GuiElement;
 import org.lwjgl.util.vector.Vector2f;
-import projects.mediavle_game.map.GroundMap;
 import projects.mediavle_game.map.entities.abs.UniqueGameEntity;
+import projects.mediavle_game.map.entities.obs.Townhall;
 import projects.mediavle_game.player.Player;
 
 /**
  * Created by finne on 21.03.2018.
  */
-public abstract class Item {
+public enum HouseItem {
 
+    TOWNHALL(new Townhall(0,0), 100,100, "raw");
 
-    private Player player;
-    private GroundMap groundMap;
-
-    public static final int TYPE_UTIL = 1;
-    public static final int TYPE_HOUSE = 2;
-
-    private int type;
     private UniqueGameEntity uniqueGameEntity;
+    private int guiX;
+    private int guiY;
+    private String guiTexture;
 
     public GuiButton guiButton;
 
-    public Item(GroundMap groundMap, Player player, int guiX, int guiY, String guiTexture, int type, UniqueGameEntity entity) {
+    static void generateButtons() {
+        TOWNHALL.generateButton();
+    }
 
-        this.uniqueGameEntity = entity;
-        this.type = type;
-        this.player = player;
-        this.groundMap = groundMap;
-
-        Item i = this;
-
+    private void generateButton(){
+        HouseItem i = this;
         guiButton = new GuiButton(guiTexture) {
             @Override
             public void onClick() {
-                player.setItem(i);
+                Player.setItem(i);
             }
         };
         guiButton.setDisplayMode(GuiElement.DISPLAY_MODE_PIXEL_SPACE);
         guiButton.setLocation(new Vector2f(guiX,guiY));
         guiButton.setScale(new Vector2f(100,100));
+        try {
+            Sys.OVERLAY_SYSTEM.addElement(guiButton);
+        } catch (CoreException e) {
+            e.printStackTrace();
+        }
     }
 
-    public int getType() {
-        return type;
+    private HouseItem(UniqueGameEntity uniqueGameEntity, int guiX, int guiY, String guiTexture) {
+        this.uniqueGameEntity = uniqueGameEntity;
+        this.guiX = guiX;
+        this.guiY = guiY;
+        this.guiTexture = guiTexture;
     }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public abstract void onAction_Util();
 
     public UniqueGameEntity getUniqueGameEntity() {
         return uniqueGameEntity;

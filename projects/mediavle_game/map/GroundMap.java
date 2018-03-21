@@ -55,7 +55,7 @@ public class GroundMap extends Ground {
 
     public boolean couldPlace(int x, int y, int w, int h){
         for(int i = x; i < x + w; i++) {
-            for(int n = 0; n < y + h; n++) {
+            for(int n = y; n < y + h; n++) {
                 if(fields[i][n].getGameEntity() != null){
                     if(fields[i][n].getGameEntity().isRigidBody()){
                         return false;

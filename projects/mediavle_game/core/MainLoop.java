@@ -24,7 +24,6 @@ import java.util.ArrayList;
  */
 public class MainLoop extends RenderCore {
 
-    private Player player = new Player();
     private ArrayList<Light> lights = new ArrayList<>();
 
     private GroundMap groundMap;
@@ -38,7 +37,7 @@ public class MainLoop extends RenderCore {
         Townhall.generateTexturedModel();
         TreeSet.generateTexturedModel();
 
-        GuiInit.generateTextures(groundMap, player);
+        GuiInit.generateTextures();
 
         groundMap = new GroundMap();
         groundMap.generateEntity();
@@ -66,15 +65,15 @@ public class MainLoop extends RenderCore {
     @Override
     protected void render() {
 
-        Sys.SKYDOME_SYSTEM.render(player.getPerspectiveCamera());
-        Sys.NORMAL_ENTITY_SYSTEM.render(lights, player.getPerspectiveCamera());
-        Sys.INSTANCED_ENTITY_SYSTEM.render(lights, player.getPerspectiveCamera());
+        Sys.SKYDOME_SYSTEM.render(Player.getPerspectiveCamera());
+        Sys.NORMAL_ENTITY_SYSTEM.render(lights, Player.getPerspectiveCamera());
+        Sys.INSTANCED_ENTITY_SYSTEM.render(lights, Player.getPerspectiveCamera());
         Sys.OVERLAY_SYSTEM.render();
 
-        player.move(groundMap);
+        Player.move(groundMap);
     }
 
     public static void main(String[] args) {
-        MainLoop mainLoop = new MainLoop();
+        new MainLoop();
     }
 }

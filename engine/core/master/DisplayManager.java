@@ -49,7 +49,7 @@ public class DisplayManager {
 			 
             Display.setDisplayMode(mode);
             Display.create(new PixelFormat().withSamples(1), attribs);
-            Display.setFullscreen(true);
+            Display.setFullscreen(false);
             Mouse.setGrabbed(true);
             GL11.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_NICEST);
           

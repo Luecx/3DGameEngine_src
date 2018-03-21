@@ -41,6 +41,8 @@ public abstract class UniqueGameEntity<T extends UniqueGameEntity<T>> extends Ga
         }
     }
 
+    public abstract TexturedModel getTexturedModel();
+
     public Entity getEntity() {
         return entity;
     }
