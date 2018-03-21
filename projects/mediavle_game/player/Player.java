@@ -15,18 +15,17 @@ import projects.mediavle_game.gui.GuiInit;
 import projects.mediavle_game.gui.HouseItem;
 import projects.mediavle_game.map.GroundMap;
 import projects.mediavle_game.player.Inventory.Inventory;
-import projects.mediavle_game.player.items.Item;
 import projects.mediavle_game.map.entities.abs.UniqueGameEntity;
 
 public class Player {
-    private PlayerCamera perspectiveCamera = new PlayerCamera(500, 1.65f, 500);
-    private float mouseSens = 0.1f;
-    private float forwardSpeed = 4;
-    private int score;
-    private float totalWalked;
-    private Inventory inventory = new Inventory(24,4);
+    private static PlayerCamera perspectiveCamera = new PlayerCamera(500, 1.65f, 500);
+    private static float mouseSens = 0.1f;
+    private static float forwardSpeed = 4;
+    private static int score;
+    private static float totalWalked;
+    private static Inventory inventory = new Inventory(24,4);
 
-    public void move(GroundMap groundMap) {
+    public static void move(GroundMap groundMap) {
 
         System.out.print(inventory.checkId(0));
         System.out.println(inventory.checkCount(0));
