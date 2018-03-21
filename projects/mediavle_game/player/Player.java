@@ -7,6 +7,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import projects.mediavle_game.gui.GuiInit;
 import projects.mediavle_game.map.GroundMap;
+import projects.mediavle_game.player.Inventory.Inventory;
 import projects.mediavle_game.player.items.Item;
 
 public class Player {
@@ -15,18 +16,27 @@ public class Player {
     private float forwardSpeed = 4;
     private int score;
     private float totalWalked;
+    private Inventory inventory = new Inventory(24,4);
 
     public void move(GroundMap groundMap) {
+
+        System.out.print(inventory.checkId(0));
+        System.out.println(inventory.checkCount(0));
+
         perspectiveCamera.increaseRotation(Mouse.getDY() * mouseSens, Mouse.getDX() * -1 * mouseSens, 0);
         if (perspectiveCamera.getRotation().x > 90)
             perspectiveCamera.getRotation().x = 90;
         else if (perspectiveCamera.getRotation().x < -90)
             perspectiveCamera.getRotation().x = -90;
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
-            forwardSpeed = 20;
-        else
+        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+            forwardSpeed = 8;
+            perspectiveCamera.setFOV(75);
+        }
+        else{
             forwardSpeed = 4;
+            perspectiveCamera.setFOV(70);
+        }
 
         Vector3f forward = (Vector3f) (perspectiveCamera.getZAxis().negate());
         Vector3f sideward = (Vector3f) (perspectiveCamera.getXAxis().negate());
@@ -46,11 +56,13 @@ public class Player {
             perspectiveCamera.increasePosition((Vector3f) directionSide.negate());
 
         totalWalked += Vector3f.sub(perspectiveCamera.getPosition(),pos,null).length();
-        System.out.println(totalWalked);
 
         perspectiveCamera.getPosition().y = 1.65f + (float)Math.sin(totalWalked * 2) * 0.1f;
 
         if (groundMap.isRigidBody(perspectiveCamera.getAbsolutePosition().x, perspectiveCamera.getAbsolutePosition().z)) {
+            perspectiveCamera.setPosition(pos);
+        }
+        if (perspectiveCamera.getPosition().x < 50 || perspectiveCamera.getPosition().x > 950 || perspectiveCamera.getPosition().z < 50 || perspectiveCamera.getPosition().z > 950) {
             perspectiveCamera.setPosition(pos);
         }
 
@@ -60,6 +72,7 @@ public class Player {
                 if (groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity() != null) {
                     groundMap.getFields()[(int) look.x][(int) look.y].getGameEntity().destroyEntity();
                     groundMap.getFields()[(int) look.x][(int) look.y].setUniqueGameEntity(null);
+                    inventory.giveItem(0,1,1);
                     score ++;
                     System.out.println(score);
                 }

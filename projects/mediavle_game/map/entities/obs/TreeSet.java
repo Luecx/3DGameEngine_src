@@ -22,7 +22,7 @@ public class TreeSet extends InstancedGameEntitySet<Tree> {
         TREE_SET = new TreeSet();
 
         RawModel model = OBJLoader.loadOBJ("models/goodTree", true);
-        EntityMaterial material = new EntityMaterial(Loader.loadTexture("raw"));
+        EntityMaterial material = new EntityMaterial(Loader.loadTexture("textures/colormaps/treetexture"));
         texturedModel = new TexturedModel(model, material);
 
         TREE_SET.instanceSet = new InstanceSet(texturedModel);

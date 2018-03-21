@@ -53,7 +53,7 @@ public class MainLoop extends RenderCore {
             RenderSettings.skydome_fog_midlevel = 0;
             RenderSettings.skydome_fog_gradient = 5;
             RenderSettings.skydome_fog_density = 2;
-            Sys.SKYDOME_SYSTEM.addElement(new SkydomeElement(Loader.loadTexture("raw")));
+            Sys.SKYDOME_SYSTEM.addElement(new SkydomeElement(Loader.loadTexture("textures/colormaps/sky")));
         } catch (CoreException e) {
             e.printStackTrace();
         }
