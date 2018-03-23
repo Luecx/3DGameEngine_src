@@ -34,7 +34,7 @@ public class RenderSettings {
     public static float entity_fog_density = 0.01f;
     public static float entity_fog_gradient = 2.5f;
     public static float entity_fog_color_red = 0.8f;
-    public static float entity_fog_color_green = 0.9f;
-    public static float entity_fog_color_blue = 0.9f;
+    public static float entity_fog_color_green = 0.8f;
+    public static float entity_fog_color_blue = 0.8f;
 
 }

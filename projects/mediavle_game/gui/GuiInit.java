@@ -36,6 +36,7 @@ public class GuiInit {
         HouseItem.generateButtons();
 
         houseItems.add(HouseItem.TOWNHALL);
+        houseItems.add(HouseItem.STREET);
 
         try{
             Sys.OVERLAY_SYSTEM.addElement(crosshair);

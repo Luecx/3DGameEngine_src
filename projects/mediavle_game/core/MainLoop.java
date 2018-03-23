@@ -2,7 +2,6 @@ package projects.mediavle_game.core;
 
 import engine.core.components.Light;
 import engine.core.exceptions.CoreException;
-import engine.core.master.DisplayManager;
 import engine.core.master.RenderCore;
 import engine.core.master.RenderSettings;
 import engine.core.system.Sys;
@@ -12,10 +11,9 @@ import projects.mediavle_game.gui.GuiInit;
 import projects.mediavle_game.map.GroundMap;
 import projects.mediavle_game.map.entities.obs.Ground;
 import projects.mediavle_game.map.entities.obs.Townhall;
-import projects.mediavle_game.map.entities.obs.Tree;
-import projects.mediavle_game.map.entities.obs.TreeSet;
+import projects.mediavle_game.map.entities.obs.sets.StreetSet;
+import projects.mediavle_game.map.entities.obs.sets.TreeSet;
 import projects.mediavle_game.player.Player;
-import projects.mediavle_game.player.PlayerCamera;
 
 import java.util.ArrayList;
 
@@ -36,21 +34,19 @@ public class MainLoop extends RenderCore {
         Ground.generateTexturedModel();
         Townhall.generateTexturedModel();
         TreeSet.generateTexturedModel();
+        StreetSet.generateTexturedModel();
 
         GuiInit.generateTextures();
 
         groundMap = new GroundMap();
         groundMap.generateEntity();
 
-        Townhall townhall = new Townhall(510,510);
-        townhall.generateEntity();
-
         try {
             RenderSettings.skydome_fog = true;
-            RenderSettings.skydome_radius = 4000;
-            RenderSettings.skydome_fog_midlevel = 0;
-            RenderSettings.skydome_fog_gradient = 5;
-            RenderSettings.skydome_fog_density = 2;
+            RenderSettings.skydome_radius = 5000;
+            RenderSettings.skydome_fog_midlevel = 200;
+            RenderSettings.skydome_fog_gradient = 4;
+            RenderSettings.skydome_fog_density = 3;
             Sys.SKYDOME_SYSTEM.addElement(new SkydomeElement(Loader.loadTexture("textures/colormaps/sky")));
         } catch (CoreException e) {
             e.printStackTrace();

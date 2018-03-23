@@ -5,7 +5,9 @@ import engine.core.system.Sys;
 import engine.linear.gui.GuiButton;
 import engine.linear.material.GuiElement;
 import org.lwjgl.util.vector.Vector2f;
+import projects.mediavle_game.map.entities.abs.GameEntity;
 import projects.mediavle_game.map.entities.abs.UniqueGameEntity;
+import projects.mediavle_game.map.entities.obs.Street;
 import projects.mediavle_game.map.entities.obs.Townhall;
 import projects.mediavle_game.player.Player;
 
@@ -14,9 +16,10 @@ import projects.mediavle_game.player.Player;
  */
 public enum HouseItem {
 
-    TOWNHALL(new Townhall(0,0), 100,100, "raw");
+    TOWNHALL(new Townhall(0,0), 100,100, "raw"),
+    STREET(new Street(0,0), 220, 100, "raw");
 
-    private UniqueGameEntity uniqueGameEntity;
+    private GameEntity gameEntity;
     private int guiX;
     private int guiY;
     private String guiTexture;
@@ -25,10 +28,11 @@ public enum HouseItem {
 
     static void generateButtons() {
         TOWNHALL.generateButton();
+        STREET.generateButton();
     }
 
     private void generateButton(){
-        HouseItem i = this;
+        final HouseItem i = this;
         guiButton = new GuiButton(guiTexture) {
             @Override
             public void onClick() {
@@ -45,19 +49,19 @@ public enum HouseItem {
         }
     }
 
-    private HouseItem(UniqueGameEntity uniqueGameEntity, int guiX, int guiY, String guiTexture) {
-        this.uniqueGameEntity = uniqueGameEntity;
+    HouseItem(GameEntity gameEntity, int guiX, int guiY, String guiTexture) {
+        this.gameEntity = gameEntity;
         this.guiX = guiX;
         this.guiY = guiY;
         this.guiTexture = guiTexture;
     }
 
-    public UniqueGameEntity getUniqueGameEntity() {
-        return uniqueGameEntity;
+    public GameEntity getGameEntity() {
+        return gameEntity;
     }
 
-    public void setUniqueGameEntity(UniqueGameEntity uniqueGameEntity) {
-        this.uniqueGameEntity = uniqueGameEntity;
+    public void setGameEntity(GameEntity gameEntity) {
+        this.gameEntity = gameEntity;
     }
 
 }

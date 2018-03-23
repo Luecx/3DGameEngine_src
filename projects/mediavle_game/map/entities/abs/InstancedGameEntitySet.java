@@ -17,12 +17,12 @@ public abstract class InstancedGameEntitySet<T extends InstancedGameEntity>{
 
     protected InstanceSet instanceSet;
 
-
-
     public void addInstance(T instance) {
         instances.add(instance);
-        instanceSet.setRandomRotation(false,true,false);
-        positions.add(new float[]{instance.getX() + 0.5f,0,instance.getY() + 0.5f});
+        positions.add(new float[]{
+                instance.getX() + (float)instance.getWidth() / 2f,
+                0,
+                instance.getY() + (float)instance.getHeight() / 2f});
         instanceSet.setOutdated(true);
         instanceSet.updateVbo();
     }

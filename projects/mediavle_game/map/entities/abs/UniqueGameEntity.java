@@ -8,27 +8,13 @@ import engine.linear.entities.TexturedModel;
 /**
  * Created by finne on 20.03.2018.
  */
-public abstract class UniqueGameEntity<T extends UniqueGameEntity<T>> extends GameEntity{
+public abstract class UniqueGameEntity<T extends UniqueGameEntity<T>> extends GameEntity<T>{
 
 
     protected Entity entity;
 
-    protected int width;
-    protected int height;
-
     public UniqueGameEntity(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
+        super(x, y, width, height);
     }
 
     public abstract void generateEntity();
@@ -41,11 +27,10 @@ public abstract class UniqueGameEntity<T extends UniqueGameEntity<T>> extends Ga
         }
     }
 
-    public abstract TexturedModel getTexturedModel();
+    public abstract T clone();
 
     public Entity getEntity() {
         return entity;
     }
 
-    public abstract T clone();
 }

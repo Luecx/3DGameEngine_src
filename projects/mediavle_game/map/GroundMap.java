@@ -8,6 +8,7 @@ import engine.linear.entities.TexturedModel;
 import engine.linear.loading.Loader;
 import engine.linear.loading.OBJLoader;
 import engine.linear.material.EntityMaterial;
+import projects.mediavle_game.map.entities.abs.GameEntity;
 import projects.mediavle_game.map.entities.abs.UniqueGameEntity;
 import projects.mediavle_game.map.entities.obs.Ground;
 import projects.mediavle_game.map.entities.obs.Tree;
@@ -66,15 +67,23 @@ public class GroundMap extends Ground {
         return true;
     }
 
-    public void place(UniqueGameEntity entity) {
+    public boolean couldPlace(GameEntity gameEntity) {
+        return couldPlace(gameEntity.getX(),gameEntity.getY(),gameEntity.getWidth(),gameEntity.getHeight());
+    }
+
+    public boolean couldPlace(GameEntity gameEntity, int x, int y) {
+        return couldPlace(x,y,gameEntity.getWidth(),gameEntity.getHeight());
+    }
+
+    public void place(GameEntity entity) {
         if(couldPlace(entity.getX(),entity.getY(), entity.getWidth(), entity.getHeight())){
             for(int i = entity.getX(); i < entity.getX() + entity.getWidth(); i++) {
                 for(int n = entity.getY(); n < entity.getY() + entity.getHeight(); n++) {
                     fields[i][n].setUniqueGameEntity(entity);
                 }
             }
+            entity.generateEntity();
         }
-        entity.generateEntity();
     }
 
     public void destroy(int x, int y) {
@@ -97,12 +106,11 @@ public class GroundMap extends Ground {
     }
 
     public void initGame() {
-        for(int i = 0; i < 15000; i++) {
-            int x = (int) (Math.random() * WIDTH);
-            int y = (int) (Math.random() * HEIGHT);
+        for(int i = 0; i < 10; i++) {
+            int x = (int) (Math.random() * (WIDTH - 5) + 2);
+            int y = (int) (Math.random() * (HEIGHT - 5) + 2);
             Tree tree = new Tree(x,y);
-            tree.generateEntity();
-            fields[x][y].setUniqueGameEntity(tree);
+            this.place(tree);
         }
     }
 

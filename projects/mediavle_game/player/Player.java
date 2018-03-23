@@ -9,26 +9,37 @@ import engine.linear.entities.TexturedModel;
 import engine.linear.material.EntityMaterial;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import projects.mediavle_game.gui.GuiInit;
 import projects.mediavle_game.gui.HouseItem;
 import projects.mediavle_game.map.GroundMap;
+import projects.mediavle_game.map.entities.abs.GameEntity;
+import projects.mediavle_game.map.entities.abs.InstancedGameEntity;
 import projects.mediavle_game.player.Inventory.Inventory;
 import projects.mediavle_game.map.entities.abs.UniqueGameEntity;
 
+import java.security.Key;
+
 public class Player {
-    private static PlayerCamera perspectiveCamera = new PlayerCamera(500, 1.65f, 500);
+
+    private static PlayerCamera perspectiveCamera = new PlayerCamera(500, 1.25f, 500);
     private static float mouseSens = 0.1f;
-    private static float forwardSpeed = 4;
+
+    private static float forwardSpeed_normal = 2;
+    private static float forwardSpeed_running = 6;
+    private static float sideSpeed = 2;
+
     private static int score;
     private static float totalWalked;
+
     private static Inventory inventory = new Inventory(24,4);
 
     public static void move(GroundMap groundMap) {
 
-        System.out.print(inventory.checkId(0));
-        System.out.println(inventory.checkCount(0));
+        //System.out.print(inventory.checkId(0));
+        //System.out.println(inventory.checkCount(0));
+
+        float forwardSpeed = 0;
 
         perspectiveCamera.increaseRotation(Mouse.getDY() * mouseSens, Mouse.getDX() * -1 * mouseSens, 0);
         if (perspectiveCamera.getRotation().x >= 85)
@@ -37,26 +48,31 @@ public class Player {
             perspectiveCamera.getRotation().x = -85;
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
-            forwardSpeed = 8;
-            perspectiveCamera.setFOV(75);
+            forwardSpeed = forwardSpeed_running;
+            //perspectiveCamera.setFOV(75);
         }
         else{
-            forwardSpeed = 4;
-            perspectiveCamera.setFOV(70);
+            forwardSpeed = forwardSpeed_normal;
+            //perspectiveCamera.setFOV(70);
         }
 
         Vector3f forward = (Vector3f) (perspectiveCamera.getZAxis().negate());
         Vector3f sideward = (Vector3f) (perspectiveCamera.getXAxis().negate());
         Vector3f direction = (Vector3f) (new Vector3f(forward.x, 0, forward.z).normalise().scale(forwardSpeed * (float) DisplayManager.processedFrameTime()));
-        Vector3f directionSide = (Vector3f) (new Vector3f(sideward.x, 0, sideward.z).normalise().scale(2 * (float) DisplayManager.processedFrameTime()));
+        Vector3f directionSide = (Vector3f) (new Vector3f(sideward.x, 0, sideward.z).normalise().scale(sideSpeed * (float) DisplayManager.processedFrameTime()));
 
         Vector3f pos = new Vector3f(perspectiveCamera.getPosition());
 
 
+        if (Keyboard.isKeyDown(Keyboard.KEY_Q)) {
+            perspectiveCamera.setFOV((float)Math.max(60, perspectiveCamera.getFOV() - 0.1));}
+        if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
+            perspectiveCamera.setFOV((float)Math.min(120, perspectiveCamera.getFOV() + 0.1));}
+
         if (Keyboard.isKeyDown(Keyboard.KEY_W))
             perspectiveCamera.increasePosition(direction);
         if (Keyboard.isKeyDown(Keyboard.KEY_S))
-            perspectiveCamera.increasePosition((Vector3f) direction.scale(-.2f));
+            perspectiveCamera.increasePosition((Vector3f) direction.scale(-.5f));
         if (Keyboard.isKeyDown(Keyboard.KEY_A))
             perspectiveCamera.increasePosition(directionSide);
         if (Keyboard.isKeyDown(Keyboard.KEY_D))
@@ -65,7 +81,7 @@ public class Player {
 
         totalWalked += Vector3f.sub(perspectiveCamera.getPosition(), pos, null).length();
 
-        perspectiveCamera.getPosition().y = 1.65f + (float) Math.sin(totalWalked * 2) * 0.1f;
+        perspectiveCamera.getPosition().y = 1 + (float) Math.sin(totalWalked * 2) * 0.05f;
 
         if (groundMap.isRigidBody(perspectiveCamera.getAbsolutePosition().x, perspectiveCamera.getAbsolutePosition().z)) {
             perspectiveCamera.setPosition(pos);
@@ -80,12 +96,12 @@ public class Player {
             previewX = (int)perspectiveCamera.lookingAtField().getX();
             previewY = (int)perspectiveCamera.lookingAtField().getY();
         }
-
         GuiInit.setVisible(Keyboard.isKeyDown(Keyboard.KEY_TAB));
         if(Mouse.isButtonDown(0) &&
                 previewEntity != null &&
+                Keyboard.isKeyDown(Keyboard.KEY_TAB) == false &&
                 groundMap.couldPlace(previewX,previewY,previewObject.getWidth(), previewObject.getHeight())){
-            UniqueGameEntity entityToPlace = previewObject.clone();
+            GameEntity entityToPlace = previewObject.clone();
             entityToPlace.setX(previewX);
             entityToPlace.setY(previewY);
             groundMap.place(entityToPlace);
@@ -98,7 +114,7 @@ public class Player {
                 previewEntity = null;
             }else {
                 if(houseItem != null) {
-                    UniqueGameEntity e = houseItem.getUniqueGameEntity();
+                    GameEntity e = houseItem.getGameEntity();
                     previewObject = e;
                     TexturedModel previewTexModel = new TexturedModel(
                             e.getTexturedModel().getRawModel(),
@@ -113,8 +129,13 @@ public class Player {
                 }
             }
         }if(previewEntity != null){
-
-            previewEntity.setPosition(previewX,0,previewY);
+            if(previewObject instanceof InstancedGameEntity<?>) {
+                previewEntity.setPosition(previewX + previewObject.getWidth() / 2,
+                        0,
+                        previewY + previewObject.getHeight() / 2);
+            }else{
+                previewEntity.setPosition(previewX,0,previewY);
+            }
             if(!groundMap.couldPlace(previewX,previewY,previewObject.getWidth(), previewObject.getHeight())){
                 previewEntity.getModel().setWireframe(true);
             }else{
@@ -123,7 +144,7 @@ public class Player {
         }
     }
 
-    private static UniqueGameEntity previewObject;
+    private static GameEntity previewObject;
     private static Entity previewEntity;
     private static int previewX;
     private static int previewY;
