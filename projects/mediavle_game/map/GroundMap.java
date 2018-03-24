@@ -58,9 +58,7 @@ public class GroundMap extends Ground {
         for(int i = x; i < x + w; i++) {
             for(int n = y; n < y + h; n++) {
                 if(fields[i][n].getGameEntity() != null){
-                    if(fields[i][n].getGameEntity().isRigidBody()){
-                        return false;
-                    }
+                    return false;
                 }
             }
         }

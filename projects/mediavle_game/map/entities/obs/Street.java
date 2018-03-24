@@ -10,7 +10,7 @@ import projects.mediavle_game.map.entities.obs.sets.TreeSet;
 public class Street extends InstancedGameEntity<Street> {
 
     public Street(int x, int y) {
-        super(x, y, 2,2, true, StreetSet.STREET_SET);
+        super(x, y, 2,2, false, StreetSet.STREET_SET);
     }
 
     @Override
