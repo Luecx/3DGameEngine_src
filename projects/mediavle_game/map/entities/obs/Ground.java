@@ -45,6 +45,11 @@ public class Ground extends UniqueGameEntity {
     }
 
     @Override
+    public void update(double time) {
+
+    }
+
+    @Override
     public TexturedModel getTexturedModel() {
         return texturedModel;
     }

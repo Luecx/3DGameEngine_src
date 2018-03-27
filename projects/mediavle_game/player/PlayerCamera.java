@@ -25,8 +25,6 @@ public class PlayerCamera extends PerspectiveCamera{
         super(position, rotation);
     }
 
-
-
     public Vector3f lookingAt(){
         double length = this.calculateDistance(Display.getDisplayMode().getWidth() / 2, Display.getDisplayMode().getHeight()/ 2);
         Vector3f forward = (Vector3f)this.getZAxis().negate();

@@ -54,6 +54,8 @@ public abstract class GameEntity<T extends GameEntity<T>> {
 
     public abstract T clone();
 
+    public abstract void update(double time);
+
     public abstract TexturedModel getTexturedModel();
 
     public void setX(int x) {

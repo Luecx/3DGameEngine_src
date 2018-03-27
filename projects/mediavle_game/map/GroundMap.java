@@ -13,6 +13,8 @@ import projects.mediavle_game.map.entities.abs.UniqueGameEntity;
 import projects.mediavle_game.map.entities.obs.Ground;
 import projects.mediavle_game.map.entities.obs.Tree;
 
+import java.util.ArrayList;
+
 /**
  * Created by finne on 20.03.2018.
  */
@@ -22,6 +24,8 @@ public class GroundMap extends Ground {
     public static final int HEIGHT = 1000;
 
     Field[][] fields;
+
+    private ArrayList<GameEntity> gameEntities = new ArrayList<>();
 
     public GroundMap() {
         super(0, 0, WIDTH, HEIGHT);
@@ -81,26 +85,21 @@ public class GroundMap extends Ground {
                 }
             }
             entity.generateEntity();
+            gameEntities.add(entity);
         }
     }
 
-    public void destroy(int x, int y) {
+    public void removeGameEntity(int x, int y) {
         if(fields[x][y].getGameEntity() != null) {
-            if(fields[x][y].getGameEntity() instanceof UniqueGameEntity){
-                UniqueGameEntity entity = (UniqueGameEntity) fields[x][y].getGameEntity();
-                for(int i = entity.getX(); i < entity.getX() + entity.getWidth(); i++) {
-                    for(int n = entity.getY(); n < entity.getY() + entity.getHeight(); n++) {
-                        fields[i][n].setUniqueGameEntity(null);
-                    }
+            GameEntity entity = fields[x][y].getGameEntity();
+            for(int i = entity.getX(); i < entity.getX() + entity.getWidth(); i++) {
+                for(int n = entity.getY(); n < entity.getY() + entity.getHeight(); n++) {
+                    fields[i][n].setUniqueGameEntity(null);
                 }
-                entity.destroyEntity();
             }
-            else{
-                fields[x][y].getGameEntity().destroyEntity();
-                fields[x][y].setUniqueGameEntity(null);
-            }
+            entity.destroyEntity();
+            this.gameEntities.remove(entity);
         }
-
     }
 
     public void initGame() {

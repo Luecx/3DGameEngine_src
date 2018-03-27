@@ -17,4 +17,9 @@ public class Tree extends InstancedGameEntity<Tree> {
         Tree t = new Tree(this.getX(),this.getY());
         return t;
     }
+
+    @Override
+    public void update(double time) {
+
+    }
 }
