@@ -47,4 +47,9 @@ public class Townhall extends UniqueGameEntity<Townhall> {
     public Townhall(int x, int y) {
         super(x, y, 5, 5);
     }
+
+    @Override
+    public void update(double time) {
+
+    }
 }

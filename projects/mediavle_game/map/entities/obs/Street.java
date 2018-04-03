@@ -19,4 +19,8 @@ public class Street extends InstancedGameEntity<Street> {
         return t;
     }
 
+    @Override
+    public void update(double time) {
+
+    }
 }
