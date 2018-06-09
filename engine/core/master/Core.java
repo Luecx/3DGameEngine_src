@@ -2,9 +2,11 @@ package engine.core.master;
 
 
 import engine.core.components.Light;
+import engine.core.components.PerspectiveCamera;
 import engine.core.exceptions.CoreException;
 import engine.core.sourceelements.RawModel;
 import engine.core.system.Sys;
+import engine.linear.entities.Entity;
 import engine.linear.entities.TexturedModel;
 import engine.linear.loading.Loader;
 import engine.linear.loading.OBJLoader;
@@ -13,10 +15,15 @@ import engine.linear.material.SkydomeElement;
 import engine.linear.material.TerrainMaterial;
 import engine.linear.advancedterrain.Chunk;
 import engine.linear.material.TerrainMultimapTexturePack;
+import engine.render.instancedsystem.InstanceSet;
+import org.lwjgl.util.vector.Vector3f;
 import projects.game.objects.Plane;
+import projects.game.objects.plane.missile.Missile;
 import projects.game.objects.plane.missile.MissileSystem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Luecx on 16.02.2017.
@@ -115,6 +122,8 @@ public class Core extends RenderCore{
     }
 
     public static void main(String[] args){
+
+        Core c = new Core();
 //            RenderCore rend = new RenderCore() {
 //
 //                private PerspectiveCamera cam;
@@ -223,7 +232,7 @@ public class Core extends RenderCore{
 //            };
 
 
-        Core c = new Core();
+//        Core c = new Core();
 //        for(int i = 0; i < 90; i++) {
 //            Vector3f vec = new Vector3f((float)Math.sin(Math.toRadians(i)),(float)Math.cos(Math.toRadians(i)), 0);
 //            System.out.println(" deg = " + i + "   dot = " + Vector3f.dot(vec, new Vector3f(0,1,0)));
@@ -356,6 +365,63 @@ public class Core extends RenderCore{
 //                    camera.move();
 //                }
 //            };
+
+//        RenderCore renderCore = new RenderCore() {
+//
+//            PerspectiveCamera ca = new PerspectiveCamera();
+//            ArrayList<Light> lights = new ArrayList<>();
+//
+//            @Override
+//            protected void onEnable() {
+//                Sys.enableAll();
+//
+//                RawModel rawModel = OBJLoader.loadOBJ("models/cube", false);
+//                TexturedModel modelA = new TexturedModel(rawModel, new EntityMaterial(Loader.loadTexture("textures/colormaps/redPng")));
+//                TexturedModel modelB = new TexturedModel(rawModel, new EntityMaterial(Loader.loadTexture("textures/colormaps/redPng")));
+//
+//
+//                Entity a = new Entity(modelA);
+//                a.setScale(1,10,10);
+//
+//                Entity a2 = new Entity(modelA);
+//                a2.setScale(1,10,10);
+//                a2.setPosition(1.5f,0,0);
+//
+//                Entity b1 = new Entity(modelA);
+//                b1.setScale(1,7,7);
+//                b1.setPosition(4,0,0);
+//
+//                Entity b2 = new Entity(modelA);
+//                b2.setScale(1,7,7);
+//                b2.setPosition(5.5f,0,0);
+//
+//
+//                lights.add(new Light(100,100,100));
+//
+//                try {
+//                    Sys.ENTITY_SYSTEM.addElement(a);
+//                    Sys.ENTITY_SYSTEM.addElement(a2);
+//                    Sys.ENTITY_SYSTEM.addElement(b2);
+//                    Sys.ENTITY_SYSTEM.addElement(b1);
+//                } catch (CoreException e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//            }
+//
+//
+//            @Override
+//            protected void onDisable() {
+//
+//            }
+//
+//            @Override
+//            protected void render() {
+//                ca.move();
+//                Sys.ENTITY_SYSTEM.render(lights, ca);
+//            }
+//        };
 
     }
 

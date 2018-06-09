@@ -110,8 +110,6 @@ public class Chunk implements SourceElement{
             return;
         }
 
-        System.out.println("...");
-
         float[] vertices = new float[vertexCount * vertexCount * 3];
         float[] normals = new float[vertexCount * vertexCount * 3];
         float[] tangents = new float[vertexCount * vertexCount * 3];

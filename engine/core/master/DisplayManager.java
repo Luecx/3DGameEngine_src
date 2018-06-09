@@ -15,8 +15,8 @@ import org.lwjgl.opengl.*;
  */
 public class DisplayManager {
 
-    public static int WIDTH = 720;
-    public static int HEIGHT = 480;
+    public static int WIDTH = 1920;
+    public static int HEIGHT = 1080;
     public static int FPS_CAP = 120;
     public static boolean FULLSCREEN = false;
     public static int ANTIALIASING_LEVEL = 1;

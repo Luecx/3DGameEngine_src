@@ -4,6 +4,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL32;
+import org.lwjgl.opengl.GL40;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -21,11 +22,15 @@ public abstract class ShaderProgram {
     private String vertexFile;
     private String fragmentFile;
     private String geometryFile;
+    private String tesselationControlFile;
+    private String tesselationEvaluationFile;
 
     private int programID;
     private int vertexShaderID;
     private int fragmentShaderID;
     private int geometryShaderID;
+    private int tesselationControlShaderID;
+    private int tesselationEvaluationShaderID;
 
     private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
 
@@ -40,15 +45,30 @@ public abstract class ShaderProgram {
         this.geometryFile = geometryFile;
     }
 
+    public ShaderProgram(String vertexFile, String fragmentFile, String tesselationControlFile, String tesselationEvaluationFile) {
+        this.vertexFile = vertexFile;
+        this.fragmentFile = fragmentFile;
+        this.tesselationControlFile = tesselationControlFile;
+        this.tesselationEvaluationFile = tesselationEvaluationFile;
+    }
+
     public void createShader() {
         vertexShaderID = loadShader(vertexFile, GL20.GL_VERTEX_SHADER);
         fragmentShaderID = loadShader(fragmentFile, GL20.GL_FRAGMENT_SHADER);
         geometryShaderID = geometryFile == null ? 0:loadShader(geometryFile, GL32.GL_GEOMETRY_SHADER);
+        tesselationControlShaderID = tesselationControlFile == null ? 0: loadShader(tesselationControlFile, GL40.GL_TESS_CONTROL_SHADER);
+        tesselationEvaluationShaderID = tesselationEvaluationFile == null ? 0: loadShader(tesselationEvaluationFile, GL40.GL_TESS_EVALUATION_SHADER);
         programID = GL20.glCreateProgram();
         GL20.glAttachShader(programID, vertexShaderID);
         GL20.glAttachShader(programID, fragmentShaderID);
         if(geometryShaderID != 0){
             GL20.glAttachShader(programID, geometryShaderID);
+        }
+        if(tesselationControlShaderID != 0){
+            GL20.glAttachShader(programID, tesselationControlShaderID);
+        }
+        if(tesselationEvaluationShaderID != 0){
+            GL20.glAttachShader(programID, tesselationEvaluationShaderID);
         }
         bindAttributes();
         GL20.glLinkProgram(programID);

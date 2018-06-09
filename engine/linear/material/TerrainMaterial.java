@@ -3,7 +3,7 @@ package engine.linear.material;
 
 public class TerrainMaterial extends Material{
 
-	private float textureStretch = 600;
+	private float textureStretch = 1200;
 
 	private int normalMap;
 

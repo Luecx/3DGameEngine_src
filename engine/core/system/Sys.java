@@ -25,6 +25,7 @@ public abstract class Sys {
     public static final AdvancedTerrainSystem ADVANCED_TERRAIN_SYSTEM;
     public static final TerrainSystem TERRAIN_SYSTEM;
 
+
     static{
         ENTITY_SYSTEM = new EntitySystem();
         SHADOW_SYSTEM = new ShadowSystem();

@@ -103,7 +103,7 @@ public class GroundMap extends Ground {
     }
 
     public void initGame() {
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 30000; i++) {
             int x = (int) (Math.random() * (WIDTH - 5) + 2);
             int y = (int) (Math.random() * (HEIGHT - 5) + 2);
             Tree tree = new Tree(x,y);

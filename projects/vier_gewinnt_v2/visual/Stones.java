@@ -10,8 +10,8 @@ public enum Stones {
 
     STONE_1("models/icosphere", "textures/colormaps/greenPng"),
     STONE_2("models/cube", "textures/colormaps/redpng"),
-    STONE_3("models/sphere", "textures/colormaps/greenPng"),
-    STONE_4("models/cube", "textures/colormaps/redpng");
+    STONE_3("models/sphere", "textures/colormaps/bluePng"),
+    STONE_4("models/cube", "textures/colormaps/blackpng");
 
 
     TexturedModel texturedModel;

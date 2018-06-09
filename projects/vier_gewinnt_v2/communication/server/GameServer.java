@@ -369,19 +369,22 @@ public class GameServer extends Server{
                 break;
             }
         }
+        sendToBuffer(1000);
         processSendNames();
     }
     public void processFillBot(){
-        for(int i = 0; i < maxPlayers; i++) {
+        for(int i = 0; i < players.length; i++) {
             if(players[i] == null){
                 players[i] = new Player("Bot#" + (int)(Math.random() * 100000), true);
             }
         }
+        sendToBuffer(1000);
         processSendNames();
     }
     public void processLogIn(Command c) {
         if(gameIsRunning) return;
         if(this.processedPlayer != null){
+            sendToBuffer(1500);
             this.processedPlayer.setName(c.getArgument("name").getValue());
             boolean works = false;
             for(int i = 0; i < players.length; i++) {
@@ -396,7 +399,6 @@ public class GameServer extends Server{
             }
         }
         processSendConfig();
-        sendToBuffer(200);
         processSendNames();
     }
     public void processStartGame(Command c) {
@@ -417,6 +419,7 @@ public class GameServer extends Server{
     }
 
     private void sendToProcessedPlayer(String msg) {
+        sendToBuffer(100);
         try {
             processedPlayer.getConnection().sendMessage(msg);
         } catch (Exception e) {
@@ -424,6 +427,7 @@ public class GameServer extends Server{
         }
     }
     private void sendToAll(String msg) {
+        sendToBuffer(100);
         for(Player p:players){
             if(p != null && p.getConnection() != null){
                 try {
@@ -435,6 +439,7 @@ public class GameServer extends Server{
         }
     }
     private void sendToPlayer(int index, String msg) {
+        sendToBuffer(100);
         if(players[index] != null && players[index].getConnection() != null){
             try {
                 players[index].getConnection().sendMessage(msg);
