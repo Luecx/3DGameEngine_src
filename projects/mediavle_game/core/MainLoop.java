@@ -51,6 +51,8 @@ public class MainLoop extends RenderCore {
         } catch (CoreException e) {
             e.printStackTrace();
         }
+        Townhall townhall = new Townhall(510,510);
+        townhall.generateEntity();
     }
 
     @Override

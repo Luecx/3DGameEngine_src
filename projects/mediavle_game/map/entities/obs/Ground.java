@@ -19,7 +19,7 @@ public class Ground extends UniqueGameEntity {
 
     public static void generateTexturedModel() {
         RawModel model = OBJLoader.loadOBJ("ground", true);
-        EntityMaterial material = new EntityMaterial(Loader.loadTexture("raw"));
+        EntityMaterial material = new EntityMaterial(Loader.loadTexture("textures/colormaps/forest_ground"));
         material.setNormalMap(Loader.loadTexture("textures/normalmaps/groundnormal"));
         material.setUseNormalMap(true);
         texturedModel = new TexturedModel(model, material);
