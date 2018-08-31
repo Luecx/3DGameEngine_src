@@ -17,6 +17,7 @@ public class Client {
             this.udpClient = new UDPClient<ServerOut, ServerIn>(ip, port) {
                 @Override
                 protected void package_received(ServerOut serverOut) {
+
                     Client.this.package_received(serverOut);
                 }
             };
