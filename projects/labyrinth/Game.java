@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class Game extends RenderCore {
 
     private Labyrinth labyrinth;
+    private Player player;
 
     private PerspectiveCamera perspectiveCamera;
     private Entity ground;
@@ -42,8 +43,10 @@ public class Game extends RenderCore {
             }
         }
 
+
         perspectiveCamera = new PerspectiveCamera();
-        perspectiveCamera.setPosition(10,10,10);
+        perspectiveCamera.setPosition(0,1.7f,0);
+        player = new Player(perspectiveCamera);
 
         lights.add(new Light(1000,10000,3000));
 
@@ -86,11 +89,11 @@ public class Game extends RenderCore {
     protected void render() {
         Sys.ENTITY_SYSTEM.render(lights, perspectiveCamera);
         Sys.SKYDOME_SYSTEM.render(perspectiveCamera);
-        perspectiveCamera.move();
+        player.move(labyrinth);
     }
 
 
     public static void main(String[] args){
-        Game g = new Game(new labyrinth_2D(10));
+        Game g = new Game(new labyrinth_2D(20));
     }
 }

@@ -5,7 +5,6 @@
  */
 package engine.debugging.guis;
 
-import com.sun.prism.Texture;
 import engine.linear.entities.Entity;
 
 import java.awt.BorderLayout;

@@ -70,22 +70,41 @@ public class labyrinth_2D extends Labyrinth {
                 this.wall[i][k] = false;
             }
         }
-        this.wall[0][(int) (Math.random() * size) * 2 + 1] = false;
+
+
+        int startY = (int) (Math.random() * size) * 2 + 1;
+        this.wall[0][startY] = false;
         this.wall[this.wall.length - 1][(int) (Math.random() * size) * 2 + 1] = false;
+
+
+        Point current = new Point(1,startY);
         boolean[][] visited = new boolean[size * 2 + 1][size * 2 + 1];
         Stack<Point> stack = new Stack<>();
         while (unvisitedCellsLeft(visited) == true) {
-            if () {
-
-            } else {
-
+            Point nb = getUnvisitedNeighbour(visited, current);
+            if (nb != null) {
+                stack.push(current);
+                this.wall[(nb.x + current.x) / 2][(nb.y + current.y) / 2] = false;
+                current = nb;
+                visited[current.x][current.y] = true;
+            } else if(stack.empty() == false) {
+                current = stack.pop();
             }
         }
     }
 
 
     public boolean collides(float x, float y) {
-        return false;
+
+        if(x < 0 || y < 0 || x >= wall.length || y >= wall.length){
+            return false;
+        }
+
+        if(wall[(int)x][(int)y] == true){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 
@@ -102,7 +121,7 @@ public class labyrinth_2D extends Labyrinth {
                 if (wall[i][n]) {
                     Entity e = new Entity(model);
                     e.setScale(0.5f, 2, 0.5f);
-                    e.setPosition(i, 0, n);
+                    e.setPosition(i + 0.5f, 0, n + 0.5f);
                     arrayList.add(e);
                 }
             }
