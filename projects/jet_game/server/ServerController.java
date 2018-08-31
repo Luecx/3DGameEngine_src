@@ -13,6 +13,7 @@ public class ServerController extends UDPTransmittedGame<ServerIn, ServerOut> {
 
     @Override
     public void new_player(UDPClientInformation udpClientInformation) {
+        System.out.println(udpClientInformation);
         playerData.add(new PlayerData(udpClientInformation.getId()));
     }
 
@@ -20,6 +21,7 @@ public class ServerController extends UDPTransmittedGame<ServerIn, ServerOut> {
     public void remove_player(UDPClientInformation udpClientInformation) {
         for(int i = 0; i < playerData.size(); i++){
             if(playerData.get(i).getId() == udpClientInformation.getId()){
+                System.err.println(udpClientInformation);
                 playerData.remove(i);
             }
         }

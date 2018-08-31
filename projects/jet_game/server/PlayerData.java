@@ -4,7 +4,9 @@ import engine.core.components.GroupableGameObject;
 import engine.linear.maths.Ray;
 import org.lwjgl.util.vector.Vector3f;
 
-public class PlayerData {
+import java.io.Serializable;
+
+public class PlayerData implements Serializable {
 
     private Vector3f position, rotation;
     private long id;
